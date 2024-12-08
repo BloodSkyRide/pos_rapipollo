@@ -1,0 +1,48 @@
+.card{
+
+
+    width: 30VW;
+    min-width: 320px;
+
+    background-color: rgba(37, 37, 37, 0.5); /* Rojo con 50% de opacidad */
+    color: white; /* Color del texto */
+    padding: 20px; /* Espaciado interno */
+    border-radius: 5px; /* Bordes redondeados */
+
+}
+
+.body{
+
+
+    background-image: url('../assets/background_image.jpg');
+    background-repeat: no-repeat; /* Evita que la imagen se repita */
+    background-size: cover;      /* Ajusta la imagen para cubrir el área del fondo */
+    background-position: center; /* Centra la imagen en el elemento */
+}
+
+
+.img{
+
+
+
+    border-radius: 50%;
+    width: 80px;
+    height: 80px;
+
+}
+
+.img-mypantalla{
+
+    justify-content: center;
+    display: flex;
+
+}
+
+
+.title_intranet{
+
+
+    color: rgb(255, 255, 255);
+
+
+}

@@ -1,0 +1,110 @@
+.aside {
+
+
+    background-color: #065ab3 ; /* Rojo con 50% de opacidad */
+    /*background-image: radial-gradient(circle at 39.55% 68.1%, #4c8edb 0, #335c8f 50%, #1a2e4a 100%);*/
+    /* background-image: radial-gradient(circle at 39.55% 68.1%, #8754cc 0, #6444ae 25%, #42338f 50%, #202270 75%, #001453 100%); */
+
+}
+
+
+
+aside a {
+
+
+    color: rgb(255, 255, 255) !important;
+}
+
+
+.btn_send {
+
+
+    background-color: #573da2;
+    border: none;
+    width: 200px;
+}
+
+.btn_send:hover{
+
+    background-color: #412988;
+
+}
+
+#container_menu{
+
+
+    max-width: 99%;
+}
+.card_register{
+
+
+    width: 100%;
+
+
+}
+
+
+.div_checknox{
+
+
+    display: inline-flex;
+}
+
+.dropdown{
+
+
+    background-color: #42338f;
+}
+
+.dropdown:hover{
+
+
+    background-color: #1f4ca0;
+}
+
+.dropdown:focus{
+
+
+    background-color: #1f4ca0;
+}
+
+.btn_add_labor{
+
+    background-color: #6846b2;
+    border: #1f4ca0;
+
+}
+
+.btn_add_labor:hover{
+
+    background-color: #41257c;
+    
+}
+
+.trash{
+
+    position: relative;
+    bottom: 15px;
+
+}
+
+.sub_labors{
+
+
+    margin-top: 20px;
+
+}
+
+.color_eye{
+
+
+    color: #0738a1;
+
+}
+
+.menu_dashboard:hover{
+
+    background-color: #00a2ff;
+
+
+}
