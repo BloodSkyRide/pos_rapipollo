@@ -2,7 +2,7 @@
 
     <div class="card card-default">
         <div class="card-header" style="background-color: #0F318F">
-            <h3 class="card-title" style="color: white; font-weight: bold;"><i class="fa-solid fa-list"></i>&nbsp;&nbsp;Historial de solicitudes</h3>
+            <h3 class="card-title" style="color: white; font-weight: bold;"><i class="fa-solid fa-list"></i>&nbsp;&nbsp;Crear productos</h3>
             <div class="card-tools"></div>
         </div>
 
@@ -20,86 +20,84 @@
 
                 <div class="col">
                     <div class="form-group">
-                        <label for="nombre">Nombre:</label>
+                        <label for="nombre">Nombre producto:</label>
                         <input type="text" class="form-control" id="nombre" placeholder="nombre" name="nombre">
                     </div>
                     <div class="form-group">
-                        <label for="apellido">Apellido:</label>
-                        <input type="text" class="form-control" id="apellido" placeholder="apellido"
-                            name="apellido">
+                        <label for="unidades">Precio producto:</label>
+                        <input type="number" step="0.001" class="form-control" id="unidades" placeholder="Ingresa la cantidad de unidades"
+                            name="unidades">
                     </div>
 
                     <div class="form-group">
-                        <label for="direccion">Direccion:</label>
-                        <input type="text" class="form-control" id="direccion" placeholder="Dirección"
-                            name="direccion">
+                        <label for="imagen">Imagen representativa:</label>
+                        <input type="file" class="form-control" id="imagen" name="imagen">
                     </div>
 
-                    <div class="form-group">
-                        <label for="cel_emergencia">Celular Emergencia:</label>
-                        <input type="text" class="form-control" id="cel_emergencia" placeholder="Celular emergencia"
-                            name="contacto_emergencia">
-                    </div>
 
-                    <div class="form-group">
-                        <label for="password">Contraseña:</label>
-                        <input type="password" class="form-control" id="password" placeholder="Contraseña"
-                            name="password">
-                    </div>
 
-                    <div class="form-group">
-                        <label for="rol">Tipo de Usuario:</label>
-                        <select class="form-control" name="rol" id="rol">
-                            <option value="administrador">Administrador</option>
-                            <option value="usuario">usuario</option>
-                        </select>
-                    </div>
+
                 </div>
 
                 {{-- COLUMNA 2 --}}
                 <div class="col">
 
-                    <div class="form-group">
-                        <label for="labor">Tipo de labor:</label>
+                    <div class="row">
 
+                        <div class="col-md-9">
 
-                        <select class="form-control" id="labor" name="labor">
-                            @foreach ($labores as $labor)
-                                <option value="{{ $labor['id_labor'] }}">{{ $labor['nombre_labor'] }}</option>
-                            @endforeach
-                        </select>
+                            <div class="form-group">
+                                <label for="select_item">Seleccionar items  inventario:</label>
+                                <select class="form-control select2 select2-danger"
+                                    data-dropdown-css-class="select2-danger" style="width: 100%;" id="select_item">
+                                    <option selected="selected" value="selected">Seleccionar item</option>
+        
+                                    @foreach ($productos as $producto)
+                                        <option value="{{ $producto['id_item'] }}">{{ $producto['nombre'] }}</option>
+                                    @endforeach
+        
+                                </select>
+        
+                            </div>
+
+                        </div>
+
+                        <div class="col-md">
+
+                            <button class="btn btn-primary" onclick="addItemInventory()" style="margin-top: 31px"><i class="fa-solid fa-plus"></i>&nbsp;&nbsp;Añadir item</button>
+                        </div>
 
                     </div>
 
+                    <table class="table">
+                        <thead class="thead-dark">
+                          <tr>
+                            <th scope="col">item</th>
+                            <th scope="col">Descuento</th>
+                          </tr>
+                        </thead>
+                        <tbody id="container_tr">
 
-                    <div class="form-group">
-                        <label for="nacimiento">Fecha de nacimiento:</label>
-                        <input type="date" class="form-control" id="nacimiento" name="nacimiento"
-                            placeholder="Fecha de nacimiento.">
-                    </div>
+                        </tbody>
+                      </table>
+
+                </div>
+            </div>
+
+            <div class="row">
+
+                <div class="col">
 
 
-                    <div class="form-group">
-                        <label for="email">E-mail:</label>
-                        <input type="email" class="form-control" id="email" placeholder="E-mail" name="email">
-                    </div>
-
-                    <div class="form-group">
-                        <label for="cedula">Cédula:</label>
-                        <input type="text" class="form-control" id="cedula" placeholder="Cédula" name="cedula">
-                    </div>
 
 
-                    <div class="form-group">
-                        <label for="celular">Celular:</label>
-                        <input type="text" class="form-control" id="celular" placeholder="Celular" name="celular">
-                    </div>
 
-                    <div class="form-group">
-                        <label for="contacto_emergencia">Nombre Contacto de Emergencia:</label>
-                        <input type="text" class="form-control" id="contacto_emergencia" name="nombre_contacto"
-                            placeholder="Nombre Emergencia">
-                    </div>
+                    
+                </div>
+
+                <div class="col">
+
+
                 </div>
             </div>
 

@@ -1877,5 +1877,28 @@ async function createProduct(url) {
         console.log("llego desde el backend");
         let element_container = document.getElementById("container_menu");
         element_container.innerHTML = data.html;
+
+        $(".select2").select2();
+        $(".select2bs4").select2({
+            theme: "bootstrap4",
+        });
     }
+}
+
+
+function addItemInventory(){
+
+    let item = document.getElementById("select_item");
+
+    let id_item = item.value;
+    console.log("el item es: "+id_item);
+    let name = item.selectedOptions[0].text;
+
+    console.log("el item nobre es: "+name);
+
+    let container = document.getElementById("container_tr");
+
+    container.innerHTML += `<tr><th id="selected_item" data-id="${id_item}">${name}</th>
+                           <th><input type="number" step="0.001" class="form-control" id="unidades${id_item}" placeholder="Ingresa la cantidad de unidades" name="unidades"></th></tr>`;
+ 
 }
