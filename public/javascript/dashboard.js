@@ -1898,7 +1898,68 @@ function addItemInventory(){
 
     let container = document.getElementById("container_tr");
 
-    container.innerHTML += `<tr><th id="selected_item" data-id="${id_item}">${name}</th>
-                           <th><input type="number" step="0.001" class="form-control" id="unidades${id_item}" placeholder="Ingresa la cantidad de unidades" name="unidades"></th></tr>`;
+    container.innerHTML += `<tr><th id="selected_item" data-id="${id_item}" class="selected_item">${name}</th>
+                           <th><input type="number" step="0.001" class="form-control unidades" id="unidades" placeholder="Ingresa la cantidad de unidades" name="unidades"></th></tr>`;
  
+}
+
+ function getDataProduct(){
+
+    let collectItem = document.querySelectorAll(".selected_item");
+
+    let collectInputs = document.querySelectorAll(".unidades");
+
+    let data = [];
+    let datas = {};
+
+    for (let i = 0; i < collectItem.length; i++) {
+
+        datas = {
+
+            item_inventario: collectItem[i].textContent,
+            input_descuento: collectInputs[i].value
+        }
+
+        data.push(datas);
+
+    }
+
+    console.log(data);
+
+    return data;
+
+}
+
+async function saveProduct(url){
+
+    let nombre = document.getElementById("nombre_producto");
+    let precio = document.getElementById("precio_producto");
+    let dato = getDataProduct(); 
+    const token = localStorage.getItem("access_token");
+    let response = await fetch(url,{
+        method: "POST",
+        headers: {
+
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${token}`
+        },
+        body: JSON.stringify({
+
+            array: dato,
+            nombre: nombre.value,
+            precio: precio.value
+
+        })
+
+
+    });
+
+    let data = await response.json();
+
+    if(data.status){
+
+
+        console.log("GUARDADO DE MANERA EXITOSA");
+    }
+
 }

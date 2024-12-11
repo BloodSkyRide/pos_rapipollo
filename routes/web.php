@@ -128,6 +128,8 @@ Route::put('/changeStateOverTime', [overTimeController::class, 'changeStateOverT
 
 Route::get('/createProducts', [createProductController::class, 'createProducts'])->name("createProduct")->middleware(["verifyTokenHeader"]);
 
+Route::post('/saveproduct', [createProductController::class, 'saveProduct'])->name("saveProduct")->middleware(["verifyTokenHeader"]);
+
 
 
 

@@ -21,22 +21,19 @@
                 <div class="col">
                     <div class="form-group">
                         <label for="nombre">Nombre producto:</label>
-                        <input type="text" class="form-control" id="nombre" placeholder="nombre" name="nombre">
+                        <input type="text" class="form-control" id="nombre_producto" placeholder="nombre" name="nombre">
                     </div>
                     <div class="form-group">
                         <label for="unidades">Precio producto:</label>
-                        <input type="number" step="0.001" class="form-control" id="unidades" placeholder="Ingresa la cantidad de unidades"
+                        <input type="number" step="0.001" class="form-control" id="precio_producto" placeholder="Ingresa la cantidad de unidades"
                             name="unidades">
                     </div>
+
 
                     <div class="form-group">
                         <label for="imagen">Imagen representativa:</label>
                         <input type="file" class="form-control" id="imagen" name="imagen">
                     </div>
-
-
-
-
                 </div>
 
                 {{-- COLUMNA 2 --}}
@@ -84,24 +81,7 @@
                 </div>
             </div>
 
-            <div class="row">
-
-                <div class="col">
-
-
-
-
-
-                    
-                </div>
-
-                <div class="col">
-
-
-                </div>
-            </div>
-
-
+            <center><button class="btn btn-primary" onclick="saveProduct('{{route('saveProduct')}}')">Crear producto Venta</button></center>
         </div>
 
 

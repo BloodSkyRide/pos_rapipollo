@@ -20,6 +20,7 @@ return new class extends Migration
             $table->time('hora_creacion')->nullable();
             $table->integer('tope_min')->nullable();
             $table->string('abastecimiento')->nullable();
+            $table->float('precio_costo')->nullable();
             $table->string('estado',100)->nullable();
             $table->timestamps();
             
