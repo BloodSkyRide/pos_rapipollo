@@ -1872,8 +1872,6 @@ async function createProduct(url) {
     let data = await response.json();
 
     if (data.status) {
-
-
         console.log("llego desde el backend");
         let element_container = document.getElementById("container_menu");
         element_container.innerHTML = data.html;
@@ -1882,31 +1880,60 @@ async function createProduct(url) {
         $(".select2bs4").select2({
             theme: "bootstrap4",
         });
+
+        const input = document.getElementById("imagen_product");
+
+        input.addEventListener("change", (event) => {
+            console.log("vea parce");
+            const file = event.target.files[0];
+            let imagePreview = document.getElementById("imagePreview");
+            if (file) {
+                const reader = new FileReader();
+
+                // Leer el archivo como una URL de datos
+                reader.onload = function (e) {
+                    imagePreview.src = e.target.result; // Establecer la URL en el atributo src de la imagen
+                    imagePreview.style.display = "block"; // Mostrar la imagen
+                };
+
+                reader.readAsDataURL(file); // Iniciar la lectura del archivo
+            } else {
+                // Si no hay archivo, ocultar la previsualización
+                imagePreview.style.display = "none";
+            }
+        });
     }
 }
 
+function getImagen() {
 
-function addItemInventory(){
+    const input = document.getElementById("imagen_product");
 
+    const file = input.files[0];
+    const formData = new FormData();
+    formData.append('image', file);
+
+    return formData;
+}
+
+function addItemInventory() {
     let item = document.getElementById("select_item");
 
     let id_item = item.value;
-    console.log("el item es: "+id_item);
+    console.log("el item es: " + id_item);
     let name = item.selectedOptions[0].text;
 
-    console.log("el item nobre es: "+name);
+    console.log("el item nobre es: " + name);
 
     let container = document.getElementById("container_tr");
 
     container.innerHTML += `<tr><th id="selected_item" data-id="${id_item}" class="selected_item">${name}</th>
                            <th><input type="number" step="0.001" class="form-control unidades" id="unidades" placeholder="Ingresa la cantidad de unidades" name="unidades"></th></tr>`;
-    
-    
-        $("#select_item").val("selected").trigger("change");
+
+    $("#select_item").val("selected").trigger("change");
 }
 
- function getDataProduct(){
-
+function getDataProduct() {
     let collectItem = document.querySelectorAll(".selected_item");
 
     let collectInputs = document.querySelectorAll(".unidades");
@@ -1915,246 +1942,200 @@ function addItemInventory(){
     let datas = {};
 
     for (let i = 0; i < collectItem.length; i++) {
-
         datas = {
-
             item_inventario: collectItem[i].textContent,
             id_item: collectItem[i].dataset.id,
-            input_descuento: collectInputs[i].value
-        }
+            input_descuento: collectInputs[i].value,
+        };
 
         data.push(datas);
-
     }
 
-
     return data;
-
 }
 
-async function saveProduct(url){
-
+async function saveProduct(url) {
     let nombre = document.getElementById("nombre_producto");
     let precio = document.getElementById("precio_producto");
-    let dato = getDataProduct(); 
+    let dato = getDataProduct();
+    let description = document.getElementById("descripcion_textarea");
+    // let form_image = getImagen();
+
+    const input = document.getElementById("imagen_product");
+
+    const file = input.files[0];
+    let formData = new FormData();
+    formData.append('image', file);
+    formData.append('nombre', nombre.value);
+    formData.append('precio', precio.value);
+    formData.append('array', JSON.stringify(dato));
+    formData.append('description', description.value);
+
+
     const token = localStorage.getItem("access_token");
-    let response = await fetch(url,{
+
+
+    let response = await fetch(url, {
         method: "POST",
         headers: {
-
-            "Content-Type": "application/json",
-            "Authorization": `Bearer ${token}`
+            "Authorization": `Bearer ${token}`,
         },
-        body: JSON.stringify({
-
-            array: dato,
-            nombre: nombre.value,
-            precio: precio.value
-
-        })
-
-
+        body: formData,
     });
 
     let data = await response.json();
 
-    if(data.status){
-
+    if (data.status) {
         Swal.fire({
             title: "¡Excelente!",
             text: "¡¡El producto se guardo de manera exitosa!!",
             icon: "success",
         });
-        
     }
-
 }
 
-
-async function getShowStore(url){
-
+async function getShowStore(url) {
     const token = localStorage.getItem("access_token");
 
-    let response = await fetch(url,{
+    let response = await fetch(url, {
         method: "GET",
         headers: {
-
             "Content-Type": "application/json",
-            "Authorization": `Bearer ${token}`
-        }
-
+            Authorization: `Bearer ${token}`,
+        },
     });
 
     let data = await response.json();
 
-
-    if(data.status){
-
+    if (data.status) {
         let element_container = document.getElementById("container_menu");
         element_container.innerHTML = data.html;
-
     }
-
 }
 
-async function getSearch(url, values){
-
+async function getSearch(url, values) {
     const token = localStorage.getItem("access_token");
 
     let container_div = document.getElementById("container_search");
 
-    if(values.length > 0){
-
+    if (values.length > 0) {
         container_div.style.display = "block";
         container_div.style.zIndex = "500";
         container_div.style.position = "absolute";
+    } else container_div.style.display = "none";
 
-
-    }else container_div.style.display = "none";
-
-
-    let response = await fetch(url,{
+    let response = await fetch(url, {
         method: "POST",
-        headers:{
-
+        headers: {
             "Content-Type": "application/json",
-            "Authorization": `Bearer ${token}`
+            Authorization: `Bearer ${token}`,
         },
         body: JSON.stringify({
-
-
-            search_text: values
-        })
-
+            search_text: values,
+        }),
     });
-
 
     let data = await response.json();
 
-    if(data.status){
-
-
-    container_div.innerHTML = data.html;
-
-
+    if (data.status) {
+        container_div.innerHTML = data.html;
     }
-
 }
 
-function lessAndPlus(operator,identifier){
+function lessAndPlus(operator, identifier) {
     let result = document.getElementById(`content_input-${identifier}`);
-    let convert_number = +result.value
+    let convert_number = +result.value;
     let price = document.getElementById(`button_dataset_${identifier}`);
-    let price_convert = parseInt((price.dataset.price).replace('.', ''), 10);
+    let price_convert = parseInt(price.dataset.price.replace(".", ""), 10);
     let price_finally = document.getElementById(`price-${identifier}`);
-    
-    
-    if(operator === "+"){
 
+    if (operator === "+") {
         console.log(price_convert);
-         result.value = convert_number + 1;
-         price_finally.innerHTML = price_convert * (convert_number + 1);
-    } 
-    else{
-
+        result.value = convert_number + 1;
+        price_finally.innerHTML = price_convert * (convert_number + 1);
+    } else {
         result.value = convert_number - 1;
         price_finally.innerHTML = price_convert * (convert_number - 1);
-    } 
-
-    
+    }
 }
 
-function addProductToCar(name, description, identifier){
-
-    
+function addProductToCar(name, description, identifier) {
     let car = document.getElementById("container_shop");
     let amunt = document.getElementById(`content_input-${identifier}`);
     let price_base = document.getElementById(`button_dataset_${identifier}`); // contiene el precio por unidad de cada producto
     let price_finally = document.getElementById(`price-${identifier}`);
     let convert_price = parseInt(price_finally.textContent);
 
-    let data_product = `<tr id="row_product_${identifier}" class="row_product" data-date="${identifier}-${amunt.value}">
+    let data_product = `<tr id="row_product_${identifier}" class="row_product" data-date="${identifier}-${
+        amunt.value
+    }">
                     <th><img src='https://olimpica.vtexassets.com/arquivos/ids/715678-800-auto?v=637756088913630000&width=800&height=auto&aspect=true' alt='Imagen pollo' width='60' height='60'></th>
                     <td>${name}</td>
                     <td>${description}</td>
                     <td>${amunt.value}</td>
-                    <td><i class='fa-solid fa-dollar-sign text-success'></i>&nbsp;&nbsp;${convert_price.toLocaleString("es")}</td>
+                    <td><i class='fa-solid fa-dollar-sign text-success'></i>&nbsp;&nbsp;${convert_price.toLocaleString(
+                        "es"
+                    )}</td>
                   </tr>`;
-                               
-    car.innerHTML += data_product; 
-    let price_end = parseInt(car.dataset.precio)  + convert_price;
-    console.log(typeof(price_end));
-    car.dataset.precio =  price_end;
 
-    let price_car = document.getElementById('price_total_car');
+    car.innerHTML += data_product;
+    let price_end = parseInt(car.dataset.precio) + convert_price;
+    console.log(typeof price_end);
+    car.dataset.precio = price_end;
+
+    let price_car = document.getElementById("price_total_car");
 
     let precio_final = +car.dataset.precio;
-    price_car.innerHTML =  precio_final.toLocaleString("es");
+    price_car.innerHTML = precio_final.toLocaleString("es");
 }
 
-async function sellProducts(url){
-    const token = localStorage.getItem('access_token');
+async function sellProducts(url) {
+    const token = localStorage.getItem("access_token");
 
-    
     let convert = convertArray();
-    
 
     let response = await fetch(url, {
-
-        method: 'POST',
-        headers: { 
-            'Content-Type': 'application/json',
-            "Authorization": `Bearer ${token}`
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
         },
-        
+
         body: JSON.stringify({
-
-            data: convert
-        
-        })
+            data: convert,
+        }),
     });
-
 
     let data = await response.json();
 
-
-    if(data.status){
-
+    if (data.status) {
         var Toast = Swal.mixin({
             toast: true,
-            position: 'top-end',
+            position: "top-end",
             showConfirmButton: false,
-            timer: 3000
-          });
+            timer: 3000,
+        });
 
-          Toast.fire({
-            icon: 'success',
-            title: 'Venta realizada con Éxito.!'
-          })
-
-
+        Toast.fire({
+            icon: "success",
+            title: "Venta realizada con Éxito.!",
+        });
     }
-
 }
 
-
-function convertArray(){
-
-    let products = document.querySelectorAll('.row_product');
+function convertArray() {
+    let products = document.querySelectorAll(".row_product");
 
     let array_producto = [];
 
     console.log(products);
-    products.forEach( (element) => {
-
-        let id_product = (element.dataset.date).split('-');
+    products.forEach((element) => {
+        let id_product = element.dataset.date.split("-");
         console.log(id_product);
         array_producto.push({
-
             id_item: id_product[0],
-            cantidad: id_product[1]
-        })
-
+            cantidad: id_product[1],
+        });
     });
 
     return array_producto;

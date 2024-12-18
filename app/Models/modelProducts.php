@@ -11,7 +11,7 @@ class modelProducts extends Model
     use HasFactory;
 
     protected $table = "productos_venta";
-    protected $fillable = ["nombre_producto","precio", "fecha_creacion", "created_at", "updated_at" ];
+    protected $fillable = ["nombre_producto","precio","descripcion", "fecha_creacion", "url_imagen", "created_at", "updated_at" ];
 
     public static function insertProduct($data){
 
