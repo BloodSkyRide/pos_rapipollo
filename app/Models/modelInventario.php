@@ -26,4 +26,12 @@ class modelInventario extends Model
         return self::all();
 
     }
+
+    public static function decrementInventory($id_item, $decrement){
+
+        return self::where('id_item', $id_item)
+        ->decrement('unidades_disponibles', $decrement);
+    }
+
+    
 }

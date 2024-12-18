@@ -130,6 +130,10 @@ Route::get('/createProducts', [createProductController::class, 'createProducts']
 
 Route::post('/saveproduct', [createProductController::class, 'saveProduct'])->name("saveProduct")->middleware(["verifyTokenHeader"]);
 
+Route::get('/getShowStore', [createProductController::class, 'getShowStore'])->name("getShowStore")->middleware(["verifyTokenHeader"]);
+Route::post('/searcher', [createProductController::class, 'getSearch'])->name("searcher")->middleware(["verifyTokenHeader"]);
+
+Route::post('/sell', [createProductController::class, 'sell'])->name("sell")->middleware(["verifyTokenHeader"]);
 
 
 

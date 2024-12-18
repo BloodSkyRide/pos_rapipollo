@@ -19,4 +19,12 @@ class modelProducts extends Model
         return self::create($data)->id; // se debe
 
     }
+
+    public static function searcher($search_text){
+
+        return self::where("nombre_producto","LIKE", "%". $search_text. "%")
+        ->limit(5)
+        ->get();
+
+    }
 }

@@ -321,6 +321,17 @@
                             </a>
                         </li>
 
+
+                        <li class="nav-item">
+                            <a class="nav-link menu_dashboard" onclick="getShowStore('{{ route('getShowStore') }}')"
+                                type="button" id="payroll_nav">
+                                <i class="fa-solid fa-store"></i>&nbsp;&nbsp;
+                                <p>
+                                    vender
+                                </p>
+                            </a>
+                        </li>
+
                     </ul>
                 </nav>
             </div>

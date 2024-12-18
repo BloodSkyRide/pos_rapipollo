@@ -11,14 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('productos_venta', function (Blueprint $table) {
+        Schema::create('compuestos', function (Blueprint $table) {
 
-            $table->id("id_producto");
-            $table->string("nombre_producto",255);
-            $table->bigInteger("precio")->nullable();
-            $table->text("descripcion")->nullable();
+            $table->id("id_compuesto");
+            $table->integer("id_producto_venta");
+            $table->string("nombre_compuesto",255);
+            $table->integer("id_item_fk");
+            $table->float("descuento")->nullable();
             $table->date('fecha_creacion')->nullable();
-            $table->text('url_imagen')->nullable();
             $table->timestamps();
             
         });
@@ -29,6 +29,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('productos_venta');
+        Schema::dropIfExists('compuestos');
     }
 };

@@ -81,7 +81,7 @@
                 </div>
             </div>
 
-            <center><button class="btn btn-primary" onclick="saveProduct('{{route('saveProduct')}}')">Crear producto Venta</button></center>
+            <center><button class="btn btn-primary" onclick="saveProduct('{{route('saveProduct')}}')"><i class="fa-solid fa-square-plus"></i>&nbsp;&nbsp;Crear producto de Venta</button></center>
         </div>
 
 
