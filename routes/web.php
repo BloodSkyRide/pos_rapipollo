@@ -11,6 +11,7 @@ use App\Http\Controllers\scheduleController;
 use App\Http\Controllers\payrollController;
 use App\Http\Controllers\overTimeController;
 use App\Http\Controllers\createProductController;
+use App\Http\Controllers\inventoryController;
 
 
 
@@ -134,6 +135,15 @@ Route::get('/getShowStore', [createProductController::class, 'getShowStore'])->n
 Route::post('/searcher', [createProductController::class, 'getSearch'])->name("searcher")->middleware(["verifyTokenHeader"]);
 
 Route::post('/sell', [createProductController::class, 'sell'])->name("sell")->middleware(["verifyTokenHeader"]);
+
+
+Route::get('/getShowInventory', [inventoryController::class, 'getShowInventory'])->name("getShowInventory")->middleware(["verifyTokenHeader"]);
+
+Route::post('/saveInventory', [inventoryController::class, 'saveInventory'])->name("saveInventory")->middleware(["verifyTokenHeader"]);
+
+Route::put('/editInventory', [inventoryController::class, 'editInventory'])->name("editInventory")->middleware(["verifyTokenHeader"]);
+
+Route::post('/delete', [inventoryController::class, 'deleteInventory'])->name("deleteInventory")->middleware(["verifyTokenHeader"]);
 
 
 

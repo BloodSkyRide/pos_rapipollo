@@ -26,5 +26,27 @@ class modelProducts extends Model
         ->limit(5)
         ->get();
 
+
+    }
+
+
+    public static function getNameProduct($id_product){
+
+        return self::where("id_producto", $id_product)
+        ->select("nombre_producto")
+        ->get();
+    }
+
+    public static function getDescriptionProduct($id_product){
+
+        return self::where("id_producto", $id_product)
+        ->select("descripcion")
+        ->get();
+    }
+
+    public static function getProduct($id_product){
+
+        return self::where("id_producto", $id_product)
+        ->first();
     }
 }

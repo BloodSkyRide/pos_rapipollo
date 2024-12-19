@@ -9,6 +9,8 @@ use Carbon\Carbon;
 use App\Models\modelInventario;
 use App\Models\modelProducts;
 use App\Models\modelCompuesto;
+use App\Models\modelSell;
+use Tymon\JWTAuth\Facades\JWTAuth;
 
 class createProductController extends Controller
 {
@@ -83,6 +85,7 @@ class createProductController extends Controller
     }
 
     public function getSearch(Request $request){
+        
 
         $search_text = $request->search_text;
 
@@ -96,16 +99,45 @@ class createProductController extends Controller
 
     public function sell(Request $request){
 
+
+        $token_header = $request->header("Authorization");
+
+        $replace = str_replace("Bearer ", "", $token_header);
+        
+        $decode_token = JWTAuth::setToken($replace)->authenticate();
+
+        $self_id = $decode_token["cedula"];
+
+        $self_name = $decode_token["nombre"]." ".$decode_token["apellido"];
+
         $array = $request->data;
         $aux = 0;
 
         
         foreach($array as $item){
             $aux++;
-            $get_compuesto = modelCompuesto::getComposed($item['id_item']);
-            
+            $id_producto_venta = $item['id_item']; 
+            $get_compuesto = modelCompuesto::getComposed($id_producto_venta);
+
+            // data historial
+
+            $data_product = modelProducts::getProduct($id_producto_venta);
+            $nombre_producto = $data_product->nombre_producto;
+            $descripcion_producto = $data_product->descripcion;
+            $precio_producto = $data_product->precio;
+
+
             $decrement = $item['cantidad'];
 
+            // historial de ventas
+
+            $hour = date('h:i:s');
+            $fecha = date('Y-m-d');
+
+            $total_venta = $decrement * $precio_producto;
+
+
+            $bandera = 0;
             
             foreach($get_compuesto as $compuesto){
 
@@ -113,8 +145,17 @@ class createProductController extends Controller
                 $descuento_final = $decrement * $descuento;
                 $id_item_fk = $compuesto['id_item_fk']; 
                 modelInventario::decrementInventory($id_item_fk, $descuento_final);
+                $bandera++;
             }
 
+            if($bandera === count($get_compuesto)){
+
+
+                $data_sell = ["id_producto_venta" => $id_producto_venta, "nombre_producto_venta" => $nombre_producto, "descripcion_producto_venta" => $descripcion_producto, "unidades_venta" => $decrement,
+                "id_user_cajero" => $self_id, "nombre_cajero" => $self_name, "hora" => $hour, "fecha" => $fecha, "total_venta" => $total_venta];
+                modelSell::insertSell($data_sell);
+
+            }
         }
 
         return ($aux === count($array)) ? response()->json(["status" => true]) : response()->json(["status" => false]);

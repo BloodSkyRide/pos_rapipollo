@@ -332,6 +332,27 @@
                             </a>
                         </li>
 
+
+                        <li class="nav-item">
+                            <a class="nav-link menu_dashboard" onclick="getShowInventory('{{route('getShowInventory')}}')"
+                                type="button" id="payroll_nav">
+                                <i class="fa-solid fa-boxes-stacked"></i>&nbsp;&nbsp;
+                                <p>
+                                    Inventario
+                                </p>
+                            </a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link menu_dashboard" onclick="getShowInventory('{{route('getShowInventory')}}')"
+                                type="button" id="payroll_nav">
+                                <i class="fa-solid fa-list"></i>&nbsp;&nbsp;
+                                <p>
+                                    Historial ventas
+                                </p>
+                            </a>
+                        </li>
+
                     </ul>
                 </nav>
             </div>

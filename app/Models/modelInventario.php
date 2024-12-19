@@ -33,5 +33,50 @@ class modelInventario extends Model
         ->decrement('unidades_disponibles', $decrement);
     }
 
+    public static function editInventoryUnits($id_item){
+
+
+
+    }
+
+    public static function getUnits($id_item){
+
+        return self::where("id_item", $id_item)
+        ->select("unidades_disponibles")
+        ->first();
+    }
+
+
+    public static function insertUnits($id_item, $units){
+
+        return self::where("id_item", $id_item)
+        ->update(["unidades_disponibles" => $units]);
+
+    }
+
+
+    public static function updatePrice($id_item, $price){
+
+
+        return self::where("id_item", $id_item)
+        ->update(["precio_costo" => $price]);
+
+    }
+
+    public static function verifyExists($id_item){
+
+        return self::where("id_item", $id_item)
+        ->first();
+
+    }
+
+    public static function deleteInventory($id_item){
+
+
+        return self::where("id_item",$id_item)
+        ->delete();
+
+
+    }
     
 }

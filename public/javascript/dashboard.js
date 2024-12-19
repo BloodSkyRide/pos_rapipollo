@@ -1906,12 +1906,11 @@ async function createProduct(url) {
 }
 
 function getImagen() {
-
     const input = document.getElementById("imagen_product");
 
     const file = input.files[0];
     const formData = new FormData();
-    formData.append('image', file);
+    formData.append("image", file);
 
     return formData;
 }
@@ -1920,10 +1919,27 @@ function addItemInventory() {
     let item = document.getElementById("select_item");
 
     let id_item = item.value;
-    console.log("el item es: " + id_item);
+
+    if(id_item === "selected"){
+
+
+        var Toast = Swal.mixin({
+            toast: true,
+            position: "top-end",
+            showConfirmButton: false,
+            timer: 3000,
+        });
+
+        Toast.fire({
+            icon: "error",
+            title: "Selecciona un item válido!",
+        });
+
+        return 0;
+    }
     let name = item.selectedOptions[0].text;
 
-    console.log("el item nobre es: " + name);
+
 
     let container = document.getElementById("container_tr");
 
@@ -1961,24 +1977,22 @@ async function saveProduct(url) {
     let description = document.getElementById("descripcion_textarea");
     // let form_image = getImagen();
 
-    const input = document.getElementById("imagen_product");
+    let input = document.getElementById("imagen_product");
 
     const file = input.files[0];
     let formData = new FormData();
-    formData.append('image', file);
-    formData.append('nombre', nombre.value);
-    formData.append('precio', precio.value);
-    formData.append('array', JSON.stringify(dato));
-    formData.append('description', description.value);
-
+    formData.append("image", file);
+    formData.append("nombre", nombre.value);
+    formData.append("precio", precio.value);
+    formData.append("array", JSON.stringify(dato));
+    formData.append("description", description.value);
 
     const token = localStorage.getItem("access_token");
-
 
     let response = await fetch(url, {
         method: "POST",
         headers: {
-            "Authorization": `Bearer ${token}`,
+            Authorization: `Bearer ${token}`,
         },
         body: formData,
     });
@@ -1991,6 +2005,14 @@ async function saveProduct(url) {
             text: "¡¡El producto se guardo de manera exitosa!!",
             icon: "success",
         });
+
+        let container_tr = document.getElementById("container_tr");
+
+        container_tr.innerHTML = "";
+        nombre.value = "";
+        precio.value = "";
+        description.value = "";
+        input.value = "";
     }
 }
 
@@ -2010,6 +2032,17 @@ async function getShowStore(url) {
     if (data.status) {
         let element_container = document.getElementById("container_menu");
         element_container.innerHTML = data.html;
+
+        const div_search = document.getElementById("container_search");
+
+        document.addEventListener("click", (event)=> {
+
+            if (!div_search.contains(event.target) && event.target.id !== "container_search") {
+
+                div_search.style.display = "none";
+
+            }
+        })
     }
 }
 
@@ -2073,7 +2106,9 @@ function addProductToCar(name, description, identifier, url_image) {
                     <td>${name}</td>
                     <td>${description}</td>
                     <td>${amunt.value}</td>
-                    <td><i class='fa-solid fa-dollar-sign text-success'></i>&nbsp;&nbsp;${convert_price.toLocaleString("es")}</td>
+                    <td><i class='fa-solid fa-dollar-sign text-success'></i>&nbsp;&nbsp;${convert_price.toLocaleString(
+                        "es"
+                    )}</td>
                   </tr>`;
 
     car.innerHTML += data_product;
@@ -2118,6 +2153,13 @@ async function sellProducts(url) {
             icon: "success",
             title: "Venta realizada con Éxito.!",
         });
+
+        let car = document.getElementById("container_shop");
+        let total = document.getElementById("price_total_car")
+        let input_search = document.getElementById("input_search");
+        car.innerHTML = "";
+        total.innerHTML = "0";
+        input_search.value= "";
     }
 }
 
@@ -2138,3 +2180,266 @@ function convertArray() {
 
     return array_producto;
 }
+
+
+async function getShowInventory(url){
+
+    const token = localStorage.getItem("access_token");
+    let  response = await fetch(url, {
+
+        method:"GET",
+        headers:{
+
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${token}`
+        }
+
+
+
+    });
+
+
+    let data = await response.json();
+
+
+    if(data.status){
+
+
+        let element_container = document.getElementById("container_menu");
+        element_container.innerHTML = data.html;
+
+        $(".select2").select2();
+        $(".select2bs4").select2({
+            theme: "bootstrap4",
+        });
+
+        $("#table_inventory").DataTable({
+            // Desactiva la paginación para mostrar todos los nodos
+            info: true,
+            responsive: true,
+            order: [[0, "asc"]],
+            lengthChange: false,
+            autoWidth: false,
+            buttons: ["copy", "csv", "excel", "pdf", "print", "colvis"],
+            language: {
+                search: "Buscar en la tabla:",
+                lengthMenu: "Mostrar _MENU_ registros",
+                info: "Mostrando _START_ a _END_ de _TOTAL_ registros",
+                paginate: {
+                    first: "Primero",
+                    last: "Último",
+                    next: "Siguiente",
+                    previous: "Anterior",
+                },
+                emptyTable: "No hay datos disponibles",
+            },
+        });
+    }
+
+}
+
+
+async function createInventory(url){
+
+    let nombre_producto = document.getElementById("nombre_producto_inventario");
+    let unidades = document.getElementById("unidades_inventario");
+    let tope_min = document.getElementById("tope_min");
+    let precio_costo = document.getElementById("costo");
+
+    const token = localStorage.getItem("access_token");
+    let response = await fetch(url,{
+
+        method: "POST",
+        headers:{
+
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${token}`
+        },
+        body: JSON.stringify({
+            nombre_producto: nombre_producto.value,
+            unidades: unidades.value,
+            tope_min: tope_min.value,
+            precio_costo: precio_costo.value
+        })
+
+
+    });
+
+    let data = await response.json();
+    var Toast = Swal.mixin({
+        toast: true,
+        position: "top-end",
+        showConfirmButton: false,
+        timer: 3000,
+    });
+
+    if(data.status){
+        nombre_producto.value = "";
+        unidades.value = "";
+        tope_min.value = "";
+        precio_costo.value = "";
+        
+
+
+        Toast.fire({
+            icon: "success",
+            title: "Producto añadido al inventario de manera Satisfactoria.!",
+        });
+    }
+    else{
+
+        Toast.fire({
+            icon: "error",
+            title: "No se pudó guardar el producto en el inmventario, comuniquese con el desarrollador!",
+        });
+
+    }
+
+}
+
+
+ async function changeInventory(url){
+
+
+    let units = document.getElementById('adicion_unidades');
+    let id_item_inventory = document.getElementById('select_item_inventory');
+    let price_cost = document.getElementById('price_costo');
+
+    const token = localStorage.getItem("access_token");
+    let response = await fetch(url,{
+        method: "PUT",
+        headers: {
+
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${token}`
+        },
+        body: JSON.stringify({
+
+            unidades: units.value,
+            id_inventory: id_item_inventory.value,
+            precio_costo: price_cost.value
+        })
+    });
+
+    let data = await response.json();
+
+
+    if(data.status){
+
+        $("#modal_edit_inventory").modal("hide");
+
+        let element_container = document.getElementById("container_menu");
+        element_container.innerHTML = data.html;
+
+        $(".select2").select2();
+        $(".select2bs4").select2({
+            theme: "bootstrap4",
+        });
+
+        var Toast = Swal.mixin({
+            toast: true,
+            position: "top-end",
+            showConfirmButton: false,
+            timer: 3000,
+        });
+
+        Toast.fire({
+            icon: "success",
+            title: "Se actualizó correctamente el item de inventario!",
+        });
+
+        $("#table_inventory").DataTable({
+            // Desactiva la paginación para mostrar todos los nodos
+            info: true,
+            responsive: true,
+            order: [[0, "asc"]],
+            lengthChange: false,
+            autoWidth: false,
+            buttons: ["copy", "csv", "excel", "pdf", "print", "colvis"],
+            language: {
+                search: "Buscar en la tabla:",
+                lengthMenu: "Mostrar _MENU_ registros",
+                info: "Mostrando _START_ a _END_ de _TOTAL_ registros",
+                paginate: {
+                    first: "Primero",
+                    last: "Último",
+                    next: "Siguiente",
+                    previous: "Anterior",
+                },
+                emptyTable: "No hay datos disponibles",
+            },
+        });
+
+    }
+
+ }
+
+ async function deleteInventory(url){
+
+    let id_item_inventory = document.getElementById('select_item_inventory');
+    const token = localStorage.getItem("access_token");
+    let response = await fetch(url,{
+
+        method: "POST",
+        headers: {
+
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${token}`
+        },
+
+        body: JSON.stringify({
+
+            id_item_inventory: id_item_inventory.value
+
+        })
+
+
+    });
+
+    let data = await response.json();
+
+    if(data.status){
+
+        $("#modal_edit_inventory").modal("hide");
+
+        let element_container = document.getElementById("container_menu");
+        element_container.innerHTML = data.html;
+
+        var Toast = Swal.mixin({
+            toast: true,
+            position: "top-end",
+            showConfirmButton: false,
+            timer: 3000,
+        });
+
+        Toast.fire({
+            icon: "success",
+            title: "Se eliminó correctamente el item del inventario!",
+        });
+
+
+        $("#table_inventory").DataTable({
+            // Desactiva la paginación para mostrar todos los nodos
+            info: true,
+            responsive: true,
+            order: [[0, "asc"]],
+            lengthChange: false,
+            autoWidth: false,
+            buttons: ["copy", "csv", "excel", "pdf", "print", "colvis"],
+            language: {
+                search: "Buscar en la tabla:",
+                lengthMenu: "Mostrar _MENU_ registros",
+                info: "Mostrando _START_ a _END_ de _TOTAL_ registros",
+                paginate: {
+                    first: "Primero",
+                    last: "Último",
+                    next: "Siguiente",
+                    previous: "Anterior",
+                },
+                emptyTable: "No hay datos disponibles",
+            },
+        });
+    }
+
+
+ }

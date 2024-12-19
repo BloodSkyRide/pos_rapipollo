@@ -22,23 +22,24 @@
                 <div class="col">
                     <div class="form-group">
                         <label for="nombre">Nombre producto:</label>
-                        <input type="text" class="form-control" id="nombre_producto" placeholder="nombre"
+                        <input type="text" class="form-control" id="nombre_producto" placeholder="nombre" autocomplete="off"
                             name="nombre">
                     </div>
                     <div class="form-group">
                         <label for="unidades">Precio producto:</label>
-                        <input type="number" step="0.001" class="form-control" id="precio_producto"
+                        <input type="number" step="0.001" class="form-control" id="precio_producto" autocomplete="off"
                             placeholder="Ingresa la cantidad de unidades" name="unidades">
                     </div>
 
                     <div class="form-group">
                         <label for="imagen_product">Seleccionar imagen producto:</label>
-                        <input type="file" class="form-control" id="imagen_product" name="imagen_product">
+                        <input type="file" class="form-control" id="imagen_product" name="imagen_product" autocomplete="off">
                     </div>
 
                     <div id="previewContainer">
-                       <center><img id="imagePreview" src="" alt="Previsualización de imagen" style="display: none; max-width: 300px; margin-top: 10px;"></center> 
-                      </div>
+                        <center><img id="imagePreview" src="" alt="Previsualización de imagen"
+                                style="display: none; max-width: 300px; margin-top: 10px;"></center>
+                    </div>
 
                 </div>
 
@@ -51,7 +52,7 @@
 
                             <div class="form-group">
                                 <label for="imagen">Descripcion del producto:</label>
-                                <textarea name="descripcion" id="descripcion_textarea" cols="30" rows="2" class="form-control"
+                                <textarea name="descripcion" id="descripcion_textarea" cols="30" rows="2" class="form-control" autocomplete="off"
                                     placeholder="Descripción del producto..."></textarea>
                             </div>
 
@@ -70,28 +71,26 @@
                             </div>
 
                             <button class="btn btn-primary" onclick="addItemInventory()"
-                                    class="fa-solid fa-plus"></i>&nbsp;&nbsp;Añadir item</button>
+                                class="fa-solid fa-plus"><i class="fa-solid fa-plus"></i>&nbsp;&nbsp;Añadir item</button>
                         </div>
 
-                         <div class="col-md"> 
-                            
-                <div class="table-responsive mt-3">
+                    </div>
+                    <div class="col-md">
 
-                    <table class="table">
-                        <thead class="thead-dark">
-                            <tr>
-                                <th scope="col">item</th>
-                                <th scope="col">Descuento</th>
-                            </tr>
-                        </thead>
-                        <tbody id="container_tr">
+                        <div class="table-responsive mt-3">
 
-                        </tbody>
-                    </table>
-                </div>
+                            <table class="table">
+                                <thead class="thead-dark">
+                                    <tr>
+                                        <th scope="col">item</th>
+                                        <th scope="col">Descuento</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="container_tr">
 
-                         </div> 
-
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
 
