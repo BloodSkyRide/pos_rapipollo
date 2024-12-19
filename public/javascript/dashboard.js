@@ -2059,7 +2059,7 @@ function lessAndPlus(operator, identifier) {
     }
 }
 
-function addProductToCar(name, description, identifier) {
+function addProductToCar(name, description, identifier, url_image) {
     let car = document.getElementById("container_shop");
     let amunt = document.getElementById(`content_input-${identifier}`);
     let price_base = document.getElementById(`button_dataset_${identifier}`); // contiene el precio por unidad de cada producto
@@ -2069,13 +2069,11 @@ function addProductToCar(name, description, identifier) {
     let data_product = `<tr id="row_product_${identifier}" class="row_product" data-date="${identifier}-${
         amunt.value
     }">
-                    <th><img src='https://olimpica.vtexassets.com/arquivos/ids/715678-800-auto?v=637756088913630000&width=800&height=auto&aspect=true' alt='Imagen pollo' width='60' height='60'></th>
+                    <th><img src='${url_image}' alt='Imagen pollo' width='60' height='60'></th>
                     <td>${name}</td>
                     <td>${description}</td>
                     <td>${amunt.value}</td>
-                    <td><i class='fa-solid fa-dollar-sign text-success'></i>&nbsp;&nbsp;${convert_price.toLocaleString(
-                        "es"
-                    )}</td>
+                    <td><i class='fa-solid fa-dollar-sign text-success'></i>&nbsp;&nbsp;${convert_price.toLocaleString("es")}</td>
                   </tr>`;
 
     car.innerHTML += data_product;

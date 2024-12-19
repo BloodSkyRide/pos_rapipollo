@@ -31,8 +31,7 @@ class createProductController extends Controller
         $hoy = Carbon::now()->format('Y-m-d');
 
         $name_final = $base_name."_".$hoy;
-        $path = $image->storeAs("product_images", $name_final.".pdf", "public");
-
+        $path = $image->storeAs("product_images", $name_final.".jpg", "public");
         return $root_path."/".$name_final.".jpg";
     }
 
