@@ -43,7 +43,7 @@ function startChannelPrivate(id_user) {
         playNotificationSound();
 
         let text_class = data.state === "Aceptado" ? "bg-success" : "bg-danger";
-        console.log(text_class);
+
         $(document).Toasts("create", {
             class: text_class,
             title: "Respuesta de administración",
@@ -79,7 +79,7 @@ async function register_user(url) {
         },
     }).done(function (res) {
         if (res.status) {
-            console.log("entro aqui a depurar el status");
+
             let element_container = document.getElementById("container_menu");
             element_container.innerHTML = res.html;
         }
@@ -130,233 +130,225 @@ async function sendUser(url) {
     }
 }
 
-async function showManageLabor(url) {
-    console.log("ruta" + url);
-    const token = localStorage.getItem("access_token");
-    let response = await fetch(url, {
-        method: "GET",
-        headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-        },
-    });
+// async function showManageLabor(url) {
 
-    if (response.status) {
-        let data = await response.json();
-        let element_container = document.getElementById("container_menu");
+//     const token = localStorage.getItem("access_token");
+//     let response = await fetch(url, {
+//         method: "GET",
+//         headers: {
+//             "Content-Type": "application/json",
+//             Authorization: `Bearer ${token}`,
+//         },
+//     });
 
-        element_container.innerHTML = data.html;
-        $(".select2").select2();
-        $(".select2bs4").select2({
-            theme: "bootstrap4",
-        });
+//     if (response.status) {
+//         let data = await response.json();
+//         let element_container = document.getElementById("container_menu");
 
-        initializeDataTable();
-    }
-}
+//         element_container.innerHTML = data.html;
+//         $(".select2").select2();
+//         $(".select2bs4").select2({
+//             theme: "bootstrap4",
+//         });
 
-function sweetAlert(icon, title, text) {}
+//         initializeDataTable();
+//     }
+// }
 
-function addSubLabors() {
-    let item = document.getElementById("item_labor").value.trim();
 
-    document.getElementById("item_labor").value = "";
+// function addSubLabors() {
+//     let item = document.getElementById("item_labor").value.trim();
 
-    let parent_nodo = document.getElementById("add_labors");
+//     document.getElementById("item_labor").value = "";
 
-    let id_flaf = 1;
+//     let parent_nodo = document.getElementById("add_labors");
 
-    if (!parent_nodo.hasChildNodes()) {
-        parent_nodo.innerHTML = `<button onclick=(deleteItem(this.id)) id='item${id_flaf}'style='padding: 0; border: none; background-color: inherit;' class='m-1'><span class='badge badge-info'>${item}</span></button>`;
-    } else {
-        let num_childs = parent_nodo.childNodes.length;
+//     let id_flaf = 1;
 
-        parent_nodo.innerHTML += `<button onclick=(deleteItem(this.id)) id='item${
-            id_flaf + num_childs
-        }'style='padding: 0; border: none; background-color: inherit;' class='m-1'><span class='badge badge-info'>${item}</span></button>`;
-    }
-}
+//     if (!parent_nodo.hasChildNodes()) {
+//         parent_nodo.innerHTML = `<button onclick=(deleteItem(this.id)) id='item${id_flaf}'style='padding: 0; border: none; background-color: inherit;' class='m-1'><span class='badge badge-info'>${item}</span></button>`;
+//     } else {
+//         let num_childs = parent_nodo.childNodes.length;
 
-function deleteItem(id) {
-    let item = document.getElementById(id);
+//         parent_nodo.innerHTML += `<button onclick=(deleteItem(this.id)) id='item${
+//             id_flaf + num_childs
+//         }'style='padding: 0; border: none; background-color: inherit;' class='m-1'><span class='badge badge-info'>${item}</span></button>`;
+//     }
+// }
 
-    item.remove();
-}
+// function deleteItem(id) {
+//     let item = document.getElementById(id);
 
-async function sendSubLabors(url) {
-    let parent_nodo = document.getElementById("add_labors");
+//     item.remove();
+// }
 
-    let elements = parent_nodo.querySelectorAll("button > span");
-    let texts = [];
+// async function sendSubLabors(url) {
+//     let parent_nodo = document.getElementById("add_labors");
 
-    const token = localStorage.getItem("access_token");
+//     let elements = parent_nodo.querySelectorAll("button > span");
+//     let texts = [];
 
-    elements.forEach((element) => {
-        texts.push(element.textContent);
-    });
+//     const token = localStorage.getItem("access_token");
 
-    let sub_labors_string = parent_nodo.textContent;
+//     elements.forEach((element) => {
+//         texts.push(element.textContent);
+//     });
 
-    let id_labor_principal = document.getElementById("select_labor").value;
+//     let sub_labors_string = parent_nodo.textContent;
 
-    if (texts.length > 0 && id_labor_principal !== "selected") {
-        let response = await fetch(url, {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-                Authorization: `Bearer ${token}`,
-            },
-            body: JSON.stringify({
-                id_labor_principal,
-                texts,
-            }),
-        });
+//     let id_labor_principal = document.getElementById("select_labor").value;
 
-        if (response.status) {
-            let data = await response.json();
+//     if (texts.length > 0 && id_labor_principal !== "selected") {
+//         let response = await fetch(url, {
+//             method: "POST",
+//             headers: {
+//                 "Content-Type": "application/json",
+//                 Authorization: `Bearer ${token}`,
+//             },
+//             body: JSON.stringify({
+//                 id_labor_principal,
+//                 texts,
+//             }),
+//         });
 
-            let element_container = document.getElementById("container_menu");
+//         if (response.status) {
+//             let data = await response.json();
 
-            element_container.innerHTML = data.html;
+//             let element_container = document.getElementById("container_menu");
 
-            initializeDataTable();
+//             element_container.innerHTML = data.html;
 
-            Swal.fire({
-                title: "¡Excelente!",
-                text: "¡¡ Se añadió de manera exitosa el grupo de sub labores!!",
-                icon: "succes",
-            });
-        }
-    } else {
-        Swal.fire({
-            title: "¡Uuuuups!",
-            text: "¡¡ verifica que hayas cargado sub labores en la tabla ó no has seleccionado una labor a la cual asignar el grupo de sublabores!!",
-            icon: "error",
-        });
-    }
-}
+//             initializeDataTable();
 
-function deleteSubLaborsDashborad() {
-    let parent_nodo = document.getElementById("add_labors");
+//             Swal.fire({
+//                 title: "¡Excelente!",
+//                 text: "¡¡ Se añadió de manera exitosa el grupo de sub labores!!",
+//                 icon: "succes",
+//             });
+//         }
+//     } else {
+//         Swal.fire({
+//             title: "¡Uuuuups!",
+//             text: "¡¡ verifica que hayas cargado sub labores en la tabla ó no has seleccionado una labor a la cual asignar el grupo de sublabores!!",
+//             icon: "error",
+//         });
+//     }
+// }
 
-    parent_nodo.innerHTML = "";
-}
+// function deleteSubLaborsDashborad() {
+//     let parent_nodo = document.getElementById("add_labors");
 
-async function delteSubLaborTable(url) {
-    console.log("hola");
-    let column_subgroups = document.querySelectorAll(
-        `td > div.div_checknox > input[type="checkbox"]:checked`
-    );
+//     parent_nodo.innerHTML = "";
+// }
 
-    let array = [];
+// async function delteSubLaborTable(url) {
+    
+//     let column_subgroups = document.querySelectorAll(
+//         `td > div.div_checknox > input[type="checkbox"]:checked`
+//     );
 
-    column_subgroups.forEach((node) => {
-        array.push(node.value);
-    });
+//     let array = [];
 
-    console.log(column_subgroups);
+//     column_subgroups.forEach((node) => {
+//         array.push(node.value);
+//     });
 
-    const token = localStorage.getItem("access_token");
+//     const token = localStorage.getItem("access_token");
 
-    let response = await fetch(url, {
-        method: "DELETE",
-        headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-        },
-        body: JSON.stringify({
-            ids_deletes: array,
-        }),
-    });
+//     let response = await fetch(url, {
+//         method: "DELETE",
+//         headers: {
+//             "Content-Type": "application/json",
+//             Authorization: `Bearer ${token}`,
+//         },
+//         body: JSON.stringify({
+//             ids_deletes: array,
+//         }),
+//     });
 
-    if (response.status) {
-        let data = await response.json();
-        console.log("el tipo es: " + typeof data);
+//     if (response.status) {
+//         let data = await response.json();
 
-        let element_container = document.getElementById("container_menu");
+//         let element_container = document.getElementById("container_menu");
 
-        element_container.innerHTML = data.html;
+//         element_container.innerHTML = data.html;
 
-        initializeDataTable();
-    }
-}
+//         initializeDataTable();
+//     }
+// }
 
-async function createLabor(url) {
-    let name_labor = document.getElementById("name_labor").value;
-    const token = localStorage.getItem("access_token");
+// async function createLabor(url) {
+//     let name_labor = document.getElementById("name_labor").value;
+//     const token = localStorage.getItem("access_token");
 
-    let response = await fetch(url, {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-        },
+//     let response = await fetch(url, {
+//         method: "POST",
+//         headers: {
+//             "Content-Type": "application/json",
+//             Authorization: `Bearer ${token}`,
+//         },
 
-        body: JSON.stringify({
-            name_labor,
-        }),
-    });
+//         body: JSON.stringify({
+//             name_labor,
+//         }),
+//     });
 
-    if (response.status) {
-        let data = await response.json();
-        console.log("el tipo es: " + typeof data);
+//     if (response.status) {
+//         let data = await response.json();
 
-        let element_container = document.getElementById("container_menu");
+//         let element_container = document.getElementById("container_menu");
 
-        element_container.innerHTML = data.html;
-        initializeDataTable();
-    }
-}
+//         element_container.innerHTML = data.html;
+//         initializeDataTable();
+//     }
+// }
 
-function initializeDataTable() {
-    $("#table_labors").DataTable({
-        responsive: true,
-        lengthChange: false,
-        autoWidth: false,
-        buttons: ["copy", "csv", "excel", "pdf", "print", "colvis"],
-        language: {
-            search: "Buscar en la tabla:",
-            lengthMenu: "Mostrar _MENU_ registros",
-            info: "Mostrando _START_ a _END_ de _TOTAL_ registros",
-            paginate: {
-                first: "Primero",
-                last: "Último",
-                next: "Siguiente",
-                previous: "Anterior",
-            },
-            emptyTable: "No hay datos disponibles",
-        },
-    });
-}
+// function initializeDataTable() {
+//     $("#table_labors").DataTable({
+//         responsive: true,
+//         lengthChange: false,
+//         autoWidth: false,
+//         buttons: ["copy", "csv", "excel", "pdf", "print", "colvis"],
+//         language: {
+//             search: "Buscar en la tabla:",
+//             lengthMenu: "Mostrar _MENU_ registros",
+//             info: "Mostrando _START_ a _END_ de _TOTAL_ registros",
+//             paginate: {
+//                 first: "Primero",
+//                 last: "Último",
+//                 next: "Siguiente",
+//                 previous: "Anterior",
+//             },
+//             emptyTable: "No hay datos disponibles",
+//         },
+//     });
+// }
 
-async function getShowLabors(url) {
-    const token = localStorage.getItem("access_token");
-    console.log("recupero token*: " + token);
-    let response = await fetch(url, {
-        method: "GET",
-        headers: {
-            "Content-type": "application/json",
-            Authorization: `Bearer ${token}`,
-        },
-    });
-    let data = await response.json();
+// async function getShowLabors(url) {
+//     const token = localStorage.getItem("access_token");
+//     let response = await fetch(url, {
+//         method: "GET",
+//         headers: {
+//             "Content-type": "application/json",
+//             Authorization: `Bearer ${token}`,
+//         },
+//     });
+//     let data = await response.json();
 
-    if (data.status) {
-        console.log("el tipo es: " + typeof data);
+//     if (data.status) {
 
-        let element_container = document.getElementById("container_menu");
+//         let element_container = document.getElementById("container_menu");
 
-        element_container.innerHTML = data.html;
-    } else {
-        console.log("entro a la jornada invalida!");
+//         element_container.innerHTML = data.html;
+//     } else {
 
-        Swal.fire({
-            title: "¡Uuuuups!",
-            text: "¡¡ Parece que no has iniciado labores o ya has finalizado tu jornada laboral!!",
-            icon: "error",
-        });
-    }
-}
+//         Swal.fire({
+//             title: "¡Uuuuups!",
+//             text: "¡¡ Parece que no has iniciado labores o ya has finalizado tu jornada laboral!!",
+//             icon: "error",
+//         });
+//     }
+// }
 
 async function getShowAssists(url) {
     const token = localStorage.getItem("access_token");
@@ -370,7 +362,6 @@ async function getShowAssists(url) {
 
     if (response.status) {
         let data = await response.json();
-        console.log("el tipo es: " + typeof data);
 
         let element_container = document.getElementById("container_menu");
 
@@ -461,7 +452,7 @@ async function sendModalAccept(url) {
         await retardo(iterator);
 
         iterator--;
-        console.log("el iterador es: " + iterator);
+
         if (iterator === 0) {
             button.innerHTML = `<i class="fa-solid fa-circle-check"></i>&nbsp;&nbsp;Confirmar`;
             button.removeAttribute("disabled");
@@ -470,7 +461,7 @@ async function sendModalAccept(url) {
 
     if (response.status) {
         let data = await response.json();
-        console.log("el tipo es: " + typeof data);
+
 
         let element_container = document.getElementById("container_menu");
 
@@ -480,279 +471,273 @@ async function sendModalAccept(url) {
     }
 }
 
-async function verifyHomeWorks(url) {
-    let result = document.querySelectorAll(
-        `td.column_sub_labor > div.icheck-primary > input[type="checkbox"]:checked`
-    );
+// async function verifyHomeWorks(url) {
+//     let result = document.querySelectorAll(
+//         `td.column_sub_labor > div.icheck-primary > input[type="checkbox"]:checked`
+//     );
 
-    let checked = [];
+//     let checked = [];
 
-    const token = localStorage.getItem("access_token");
+//     const token = localStorage.getItem("access_token");
 
-    result.forEach((node, index) => {
-        checked.push(node.value);
-        console.log("depuracion" + node.value);
-    });
+//     result.forEach((node, index) => {
+//         checked.push(node.value);
+//     });
 
-    let response = await fetch(url, {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-        },
-        body: JSON.stringify({
-            checked,
-        }),
-    });
+//     let response = await fetch(url, {
+//         method: "POST",
+//         headers: {
+//             "Content-Type": "application/json",
+//             Authorization: `Bearer ${token}`,
+//         },
+//         body: JSON.stringify({
+//             checked,
+//         }),
+//     });
 
-    if (response.status) {
-        let data = await response.json();
-        console.log("el tipo es: " + typeof data);
+//     if (response.status) {
+//         let data = await response.json();
 
-        let element_container = document.getElementById("container_menu");
+//         let element_container = document.getElementById("container_menu");
 
-        element_container.innerHTML = data.html;
-    }
-}
+//         element_container.innerHTML = data.html;
+//     }
+// }
 
-async function rechargeSubLabors(url) {
-    let column_subgroups = document.querySelectorAll(
-        `td > div.div_checknox > input[type="checkbox"]:checked`
-    );
+// async function rechargeSubLabors(url) {
+//     let column_subgroups = document.querySelectorAll(
+//         `td > div.div_checknox > input[type="checkbox"]:checked`
+//     );
 
-    if (column_subgroups.length > 0) {
-        let array = [];
+//     if (column_subgroups.length > 0) {
+//         let array = [];
 
-        column_subgroups.forEach((node) => {
-            array.push(node.value);
-        });
+//         column_subgroups.forEach((node) => {
+//             array.push(node.value);
+//         });
 
-        const token = localStorage.getItem("access_token");
-        let response = await fetch(url, {
-            method: "PUT",
-            headers: {
-                "Content-Type": "application/json",
-                Authorization: `Bearer ${token}`,
-            },
+//         const token = localStorage.getItem("access_token");
+//         let response = await fetch(url, {
+//             method: "PUT",
+//             headers: {
+//                 "Content-Type": "application/json",
+//                 Authorization: `Bearer ${token}`,
+//             },
 
-            body: JSON.stringify({
-                checked: array,
-            }),
-        });
+//             body: JSON.stringify({
+//                 checked: array,
+//             }),
+//         });
 
-        if (response.status) {
-            Swal.fire({
-                title: "Excelente!",
-                text: "¡¡Se han renovado las sub labores seleccionadas!!",
-                icon: "success",
-            });
+//         if (response.status) {
+//             Swal.fire({
+//                 title: "Excelente!",
+//                 text: "¡¡Se han renovado las sub labores seleccionadas!!",
+//                 icon: "success",
+//             });
 
-            column_subgroups.forEach((node) => {
-                node.checked = false;
-            });
-        } else {
-            Swal.fire({
-                title: "Uuuuups!",
-                text: "¡¡No se han renovado las sub labores, consulta con el departamento de sistemas!!",
-                icon: "error",
-            });
-        }
-    } else {
-        Swal.fire({
-            title: "Uuuuups!",
-            text: "¡¡Recuerda seleccionar las sub labores a las cuales quieres renovar!!",
-            icon: "error",
-        });
-    }
-}
+//             column_subgroups.forEach((node) => {
+//                 node.checked = false;
+//             });
+//         } else {
+//             Swal.fire({
+//                 title: "Uuuuups!",
+//                 text: "¡¡No se han renovado las sub labores, consulta con el departamento de sistemas!!",
+//                 icon: "error",
+//             });
+//         }
+//     } else {
+//         Swal.fire({
+//             title: "Uuuuups!",
+//             text: "¡¡Recuerda seleccionar las sub labores a las cuales quieres renovar!!",
+//             icon: "error",
+//         });
+//     }
+// }
 
-async function getViewHistoryLabors(url) {
-    const token = localStorage.getItem("access_token");
-    let response = await fetch(url, {
-        method: "GET",
-        headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-        },
-    });
+// async function getViewHistoryLabors(url) {
+//     const token = localStorage.getItem("access_token");
+//     let response = await fetch(url, {
+//         method: "GET",
+//         headers: {
+//             "Content-Type": "application/json",
+//             Authorization: `Bearer ${token}`,
+//         },
+//     });
 
-    if (response.status) {
-        let data = await response.json();
+//     if (response.status) {
+//         let data = await response.json();
 
-        console.log("el tipo es: " + typeof response);
+//         let element_container = document.getElementById("container_menu");
 
-        let element_container = document.getElementById("container_menu");
+//         element_container.innerHTML = data.html;
+//         $("#reservation").daterangepicker();
 
-        element_container.innerHTML = data.html;
-        $("#reservation").daterangepicker();
+//         $(".select2").select2();
+//         $(".select2bs4").select2({
+//             theme: "bootstrap4",
+//         });
 
-        $(".select2").select2();
-        $(".select2bs4").select2({
-            theme: "bootstrap4",
-        });
+//         $("#history_table_searcher").DataTable({
+//             responsive: true,
+//             order: [[4, "desc"]],
+//             lengthChange: false,
+//             autoWidth: false,
+//             buttons: ["copy", "csv", "excel", "pdf", "print", "colvis"],
+//             language: {
+//                 search: "Buscar en la tabla:",
+//                 lengthMenu: "Mostrar _MENU_ registros",
+//                 info: "Mostrando _START_ a _END_ de _TOTAL_ registros",
+//                 paginate: {
+//                     first: "Primero",
+//                     last: "Último",
+//                     next: "Siguiente",
+//                     previous: "Anterior",
+//                 },
+//                 emptyTable: "No hay datos disponibles",
+//             },
+//         });
+//     }
+// }
 
-        $("#history_table_searcher").DataTable({
-            responsive: true,
-            order: [[4, "desc"]],
-            lengthChange: false,
-            autoWidth: false,
-            buttons: ["copy", "csv", "excel", "pdf", "print", "colvis"],
-            language: {
-                search: "Buscar en la tabla:",
-                lengthMenu: "Mostrar _MENU_ registros",
-                info: "Mostrando _START_ a _END_ de _TOTAL_ registros",
-                paginate: {
-                    first: "Primero",
-                    last: "Último",
-                    next: "Siguiente",
-                    previous: "Anterior",
-                },
-                emptyTable: "No hay datos disponibles",
-            },
-        });
-    }
-}
+// function getRangeDatePicker() {
+//     let range = document.getElementById("reservation").value;
 
-function getRangeDatePicker() {
-    let range = document.getElementById("reservation").value;
+//     return range;
+// }
 
-    return range;
-}
+// async function searchForRange(url) {
+//     let range = getRangeDatePicker();
+//     const token = localStorage.getItem("access_token");
 
-async function searchForRange(url) {
-    let range = getRangeDatePicker();
-    const token = localStorage.getItem("access_token");
+//     let response = await fetch(`${url}?range=${range}`, {
+//         method: "GET",
+//         headers: {
+//             "Content-Type": "application/json",
+//             Authorization: `Bearer ${token}`,
+//         },
+//     });
 
-    let response = await fetch(`${url}?range=${range}`, {
-        method: "GET",
-        headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-        },
-    });
+//     let data = await response.json();
 
-    let data = await response.json();
+//     if (data.status) {
 
-    if (data.status) {
-        console.log("el tipo es: " + typeof response);
+//         let element_container = document.getElementById("container_menu");
 
-        let element_container = document.getElementById("container_menu");
+//         element_container.innerHTML = data.html;
+//         $("#reservation").daterangepicker();
 
-        element_container.innerHTML = data.html;
-        $("#reservation").daterangepicker();
+//         $(".select2").select2();
+//         $(".select2bs4").select2({
+//             theme: "bootstrap4",
+//         });
 
-        $(".select2").select2();
-        $(".select2bs4").select2({
-            theme: "bootstrap4",
-        });
+//         $("#reservation").val(range);
 
-        $("#reservation").val(range);
+//         $("#history_table_searcher").DataTable({
+//             responsive: true,
+//             order: [[4, "desc"]],
+//             lengthChange: false,
+//             autoWidth: false,
+//             buttons: ["copy", "csv", "excel", "pdf", "print", "colvis"],
+//             language: {
+//                 search: "Buscar en la tabla:",
+//                 lengthMenu: "Mostrar _MENU_ registros",
+//                 info: "Mostrando _START_ a _END_ de _TOTAL_ registros",
+//                 paginate: {
+//                     first: "Primero",
+//                     last: "Último",
+//                     next: "Siguiente",
+//                     previous: "Anterior",
+//                 },
+//                 emptyTable: "No hay datos disponibles",
+//             },
+//         });
+//     }
+// }
 
-        $("#history_table_searcher").DataTable({
-            responsive: true,
-            order: [[4, "desc"]],
-            lengthChange: false,
-            autoWidth: false,
-            buttons: ["copy", "csv", "excel", "pdf", "print", "colvis"],
-            language: {
-                search: "Buscar en la tabla:",
-                lengthMenu: "Mostrar _MENU_ registros",
-                info: "Mostrando _START_ a _END_ de _TOTAL_ registros",
-                paginate: {
-                    first: "Primero",
-                    last: "Último",
-                    next: "Siguiente",
-                    previous: "Anterior",
-                },
-                emptyTable: "No hay datos disponibles",
-            },
-        });
-    }
-}
+// async function searcherText(url) {
+//     let range = getRangeDatePicker();
+//     let searcher = document.getElementById("labor_select").value;
 
-async function searcherText(url) {
-    let range = getRangeDatePicker();
-    let searcher = document.getElementById("labor_select").value;
+//     const token = localStorage.getItem("access_token");
 
-    const token = localStorage.getItem("access_token");
+//     let response = await fetch(`${url}?range=${range}&text=${searcher}`, {
+//         method: "GET",
+//         headers: {
+//             "Content-Type": "application/json",
+//             Authorization: `Bearer ${token}`,
+//         },
+//     });
 
-    let response = await fetch(`${url}?range=${range}&text=${searcher}`, {
-        method: "GET",
-        headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-        },
-    });
+//     let data = await response.json();
 
-    let data = await response.json();
+//     if (data.status) {
 
-    if (data.status) {
-        console.log("el tipo es: " + typeof response);
+//         let element_container = document.getElementById("container_menu");
 
-        let element_container = document.getElementById("container_menu");
+//         element_container.innerHTML = data.html;
+//         $("#reservation").daterangepicker();
 
-        element_container.innerHTML = data.html;
-        $("#reservation").daterangepicker();
+//         document.getElementById("labor_select").value = searcher;
+//         $(".select2").select2();
+//         $(".select2bs4").select2({
+//             theme: "bootstrap4",
+//         });
 
-        document.getElementById("labor_select").value = searcher;
-        $(".select2").select2();
-        $(".select2bs4").select2({
-            theme: "bootstrap4",
-        });
+//         $("#reservation").val(range);
 
-        $("#reservation").val(range);
+//         $("#history_table_searcher").DataTable({
+//             responsive: true,
+//             order: [[4, "desc"]],
+//             lengthChange: false,
+//             autoWidth: false,
+//             buttons: ["copy", "csv", "excel", "pdf", "print", "colvis"],
+//             language: {
+//                 search: "Buscar en la tabla:",
+//                 lengthMenu: "Mostrar _MENU_ registros",
+//                 info: "Mostrando _START_ a _END_ de _TOTAL_ registros",
+//                 paginate: {
+//                     first: "Primero",
+//                     last: "Último",
+//                     next: "Siguiente",
+//                     previous: "Anterior",
+//                 },
+//                 emptyTable: "No hay datos disponibles",
+//             },
+//         });
+//     }
+// }
 
-        $("#history_table_searcher").DataTable({
-            responsive: true,
-            order: [[4, "desc"]],
-            lengthChange: false,
-            autoWidth: false,
-            buttons: ["copy", "csv", "excel", "pdf", "print", "colvis"],
-            language: {
-                search: "Buscar en la tabla:",
-                lengthMenu: "Mostrar _MENU_ registros",
-                info: "Mostrando _START_ a _END_ de _TOTAL_ registros",
-                paginate: {
-                    first: "Primero",
-                    last: "Último",
-                    next: "Siguiente",
-                    previous: "Anterior",
-                },
-                emptyTable: "No hay datos disponibles",
-            },
-        });
-    }
-}
+// async function collectSubLabors(url) {
+//     $("#modal_confirm").modal("hide");
 
-async function collectSubLabors(url) {
-    $("#modal_confirm").modal("hide");
+//     const token = localStorage.getItem("access_token");
 
-    const token = localStorage.getItem("access_token");
+//     let response = await fetch(url, {
+//         method: "POST",
+//         headers: {
+//             "Content-Type": "application/json",
+//             Authorization: `Bearer ${token}`,
+//         },
+//     });
 
-    let response = await fetch(url, {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-        },
-    });
+//     let data = await response.json();
 
-    let data = await response.json();
-
-    if (data.status) {
-        Swal.fire({
-            title: "¡Excelente!",
-            text: "¡¡Excelente las sub labores han sido recogidas de manera exitosa!!",
-            icon: "success",
-        });
-    } else {
-        Swal.fire({
-            title: "¡Uuups!",
-            text: "¡¡hubó un error, consulta con el departamento de sistemas si el error persiste!!",
-            icon: "error",
-        });
-    }
-}
+//     if (data.status) {
+//         Swal.fire({
+//             title: "¡Excelente!",
+//             text: "¡¡Excelente las sub labores han sido recogidas de manera exitosa!!",
+//             icon: "success",
+//         });
+//     } else {
+//         Swal.fire({
+//             title: "¡Uuups!",
+//             text: "¡¡hubó un error, consulta con el departamento de sistemas si el error persiste!!",
+//             icon: "error",
+//         });
+//     }
+// }
 
 async function getShowReportAssists(url) {
     const token = localStorage.getItem("access_token");
@@ -777,7 +762,6 @@ async function getShowReportAssists(url) {
 async function getShowAdminUsers(url) {
     const token = localStorage.getItem("access_token");
 
-    console.log("el token es" + token);
 
     let response = await fetch(url, {
         method: "GET",
@@ -1015,53 +999,53 @@ async function logout(url) {
     }
 }
 
-async function editNamLabor(url) {
-    const token = localStorage.getItem("access_token");
+// async function editNamLabor(url) {
+//     const token = localStorage.getItem("access_token");
 
-    let name = document.getElementById("edit_name_labor").value;
+//     let name = document.getElementById("edit_name_labor").value;
 
-    let id_labor = document.getElementById("select_labor").value;
+//     let id_labor = document.getElementById("select_labor").value;
 
-    if (id_labor !== "selected" && name.length > 0) {
-        let response = await fetch(url, {
-            method: "PUT",
-            headers: {
-                "Content-Type": "application/json",
-                Authorization: `Bearer ${token}`,
-            },
+//     if (id_labor !== "selected" && name.length > 0) {
+//         let response = await fetch(url, {
+//             method: "PUT",
+//             headers: {
+//                 "Content-Type": "application/json",
+//                 Authorization: `Bearer ${token}`,
+//             },
 
-            body: JSON.stringify({
-                id_labor: id_labor,
-                nombre_nuevo: name,
-            }),
-        });
+//             body: JSON.stringify({
+//                 id_labor: id_labor,
+//                 nombre_nuevo: name,
+//             }),
+//         });
 
-        let data = await response.json();
+//         let data = await response.json();
 
-        if (data.status) {
-            let element_container = document.getElementById("container_menu");
-            element_container.innerHTML = data.html;
+//         if (data.status) {
+//             let element_container = document.getElementById("container_menu");
+//             element_container.innerHTML = data.html;
 
-            Swal.fire({
-                title: "¡Excelente!",
-                text: "¡¡La labor fue modificada correctamente!!",
-                icon: "success",
-            });
-        } else {
-            Swal.fire({
-                title: "¡Uuuuups!",
-                text: "¡¡La labor no pudó ser modificada correctamente, si el error persiste por favor comunicarte con el departamento de sistemas!!",
-                icon: "error",
-            });
-        }
-    } else {
-        Swal.fire({
-            title: "¡Uuuuups!",
-            text: "¡¡ Error: verifica que si has escrito el nombre al que deseas cambiar ó no has seleccionado la labor que deseas modificar!!",
-            icon: "error",
-        });
-    }
-}
+//             Swal.fire({
+//                 title: "¡Excelente!",
+//                 text: "¡¡La labor fue modificada correctamente!!",
+//                 icon: "success",
+//             });
+//         } else {
+//             Swal.fire({
+//                 title: "¡Uuuuups!",
+//                 text: "¡¡La labor no pudó ser modificada correctamente, si el error persiste por favor comunicarte con el departamento de sistemas!!",
+//                 icon: "error",
+//             });
+//         }
+//     } else {
+//         Swal.fire({
+//             title: "¡Uuuuups!",
+//             text: "¡¡ Error: verifica que si has escrito el nombre al que deseas cambiar ó no has seleccionado la labor que deseas modificar!!",
+//             icon: "error",
+//         });
+//     }
+// }
 
 function verifyInputs() {
     let nombre = document.getElementById("nombre");
@@ -1209,10 +1193,7 @@ async function changePassword(url) {
         let data = await response.json();
 
         if (data.status) {
-            console.log("entro aqui en statuajhdbjasbdkjbdhb");
-
             localStorage.removeItem("access_token");
-
             window.location.href = "./";
         }
     } else {
@@ -1225,7 +1206,6 @@ async function changePassword(url) {
 }
 
 function verifyPasswords(pass1, pass2) {
-    console.log("verifico password string");
 
     return pass1 === pass2 ? true : false;
 }
@@ -1249,31 +1229,29 @@ function showPass(id, id_input) {
     }
 }
 
-async function getShowNotices(url) {
-    const token = localStorage.getItem("access_token");
+// async function getShowNotices(url) {
+//     const token = localStorage.getItem("access_token");
 
-    let response = await fetch(url, {
-        method: "GET",
-        headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-        },
-    });
+//     let response = await fetch(url, {
+//         method: "GET",
+//         headers: {
+//             "Content-Type": "application/json",
+//             Authorization: `Bearer ${token}`,
+//         },
+//     });
 
-    let data = await response.json();
+//     let data = await response.json();
 
-    if (data.status) {
-        let element_container = document.getElementById("container_menu");
-        element_container.innerHTML = data.html;
-    }
-}
+//     if (data.status) {
+//         let element_container = document.getElementById("container_menu");
+//         element_container.innerHTML = data.html;
+//     }
+// }
 
 async function searchRangeAssist() {
     const token = localStorage.getItem("access_token");
 
     let rango = document.getElementById("rango_fecha").value;
-
-    console.log("el rango elegido es: " + rango);
 
     let convert_date = new Date(rango);
 
@@ -1284,8 +1262,6 @@ async function searchRangeAssist() {
     });
 
     let format_range = fecha_f.replaceAll("/", "-");
-
-    console.log("el rango elegido es2: " + format_range);
 
     let response = await fetch("../showrangeassists/?rango=" + format_range, {
         method: "GET",
@@ -1298,7 +1274,7 @@ async function searchRangeAssist() {
     let data = await response.json();
 
     if (data.status) {
-        console.log("nueva actualizacion");
+
         let element_container = document.getElementById("container_menu");
         element_container.innerHTML = data.html;
 
@@ -1431,8 +1407,6 @@ async function insertSchedule(url) {
                 let element_container =
                     document.getElementById("container_menu");
                 element_container.innerHTML = data.html;
-
-                console.log("retorno");
 
                 const scripts = element_container.querySelectorAll("script");
 
@@ -1598,8 +1572,6 @@ async function deleteClear(url, cedula, dia) {
 async function getShowPayroll(url) {
     const token = localStorage.getItem("access_token");
 
-    console.log("depuracion aca: " + url);
-
     let response = await fetch(url, {
         method: "GET",
         headers: {
@@ -1698,7 +1670,6 @@ async function sendPdf(url) {
     }
 
     function collectPayRolls(iterations) {
-        console.log("las iteraciones son: " + iterations);
 
         let array = [];
 
@@ -1706,7 +1677,7 @@ async function sendPdf(url) {
             let elemento = document.getElementById(`input_pdf${i}`);
 
             if (elemento.files.length > 0) {
-                console.log("hola mundo");
+
                 let element = elemento.files[0];
                 let data = elemento.dataset.code;
 
@@ -1722,21 +1693,21 @@ async function sendPdf(url) {
 }
 
 function verifyNodes() {
+
     let table = document.getElementById("table_payroll");
     let inputs = table.querySelectorAll("input.input_lenght").length;
 
-    console.log("la cantidad de nodos renderizados son: " + inputs);
 }
 
-function selectAllSubLabors() {
-    let column_subgroups = document.querySelectorAll(
-        `td > div.div_checknox > input[type="checkbox"]:not(:checked)`
-    );
+// function selectAllSubLabors() {
+//     let column_subgroups = document.querySelectorAll(
+//         `td > div.div_checknox > input[type="checkbox"]:not(:checked)`
+//     );
 
-    column_subgroups.forEach((element) => {
-        element.checked = true;
-    });
-}
+//     column_subgroups.forEach((element) => {
+//         element.checked = true;
+//     });
+// }
 
 async function getShowOverTime(url) {
     const token = localStorage.getItem("access_token");
@@ -1872,7 +1843,7 @@ async function createProduct(url) {
     let data = await response.json();
 
     if (data.status) {
-        console.log("llego desde el backend");
+
         let element_container = document.getElementById("container_menu");
         element_container.innerHTML = data.html;
 
@@ -1884,7 +1855,6 @@ async function createProduct(url) {
         const input = document.getElementById("imagen_product");
 
         input.addEventListener("change", (event) => {
-            console.log("vea parce");
             const file = event.target.files[0];
             let imagePreview = document.getElementById("imagePreview");
             if (file) {
@@ -2082,23 +2052,57 @@ function lessAndPlus(operator, identifier) {
     let price_convert = parseInt(price.dataset.price.replace(".", ""), 10);
     let price_finally = document.getElementById(`price-${identifier}`);
 
+    if(result.value < 1){
+
+
+        var Toast = Swal.mixin({
+            toast: true,
+            position: "top-end",
+            showConfirmButton: false,
+            timer: 3000,
+        });
+
+        Toast.fire({
+            icon: "error",
+            title: "Solo puedes vender minimo 1 unidad en adelante!",
+        });
+        return 0;
+    }
+
     if (operator === "+") {
-        console.log(price_convert);
         result.value = convert_number + 1;
-        price_finally.innerHTML = price_convert * (convert_number + 1);
+        price_finally.innerHTML = (price_convert * (convert_number + 1)).toLocaleString("es");
     } else {
         result.value = convert_number - 1;
-        price_finally.innerHTML = price_convert * (convert_number - 1);
+        price_finally.innerHTML = (price_convert * (convert_number - 1)).toLocaleString("es");;
     }
 }
 
-function addProductToCar(name, description, identifier, url_image) {
+function addProductToCar(name, description, identifier, url_image, price_unit) {
+
+    let result = document.getElementById(`content_input-${identifier}`);
+
+    if(result.value < 1){
+
+
+        var Toast = Swal.mixin({
+            toast: true,
+            position: "top-end",
+            showConfirmButton: false,
+            timer: 3000,
+        });
+
+        Toast.fire({
+            icon: "error",
+            title: "Solo puedes vender minimo 1 unidad en adelante!",
+        });
+        return 0;
+    }
+
     let car = document.getElementById("container_shop");
     let amunt = document.getElementById(`content_input-${identifier}`);
-    let price_base = document.getElementById(`button_dataset_${identifier}`); // contiene el precio por unidad de cada producto
     let price_finally = document.getElementById(`price-${identifier}`);
-    let convert_price = parseInt(price_finally.textContent);
-
+    let convert_price = price_finally.textContent;
     let data_product = `<tr id="row_product_${identifier}" class="row_product" data-date="${identifier}-${
         amunt.value
     }">
@@ -2106,20 +2110,26 @@ function addProductToCar(name, description, identifier, url_image) {
                     <td>${name}</td>
                     <td>${description}</td>
                     <td>${amunt.value}</td>
-                    <td><i class='fa-solid fa-dollar-sign text-success'></i>&nbsp;&nbsp;${convert_price.toLocaleString(
-                        "es"
-                    )}</td>
+                    <td><i class='fa-solid fa-dollar-sign text-success'></i>&nbsp;&nbsp;${(+price_unit).toLocaleString("es")}</td>
+                    <td><i class='fa-solid fa-dollar-sign text-success'></i>&nbsp;&nbsp;${convert_price.toLocaleString("es")}</td>
                   </tr>`;
 
+
+    let convert_price_final = parseInt(convert_price.replace(/\./g, ''), 10);
+
     car.innerHTML += data_product;
-    let price_end = parseInt(car.dataset.precio) + convert_price;
-    console.log(typeof price_end);
+    let price_end = parseInt(car.dataset.precio) + convert_price_final;
     car.dataset.precio = price_end;
 
     let price_car = document.getElementById("price_total_car");
 
     let precio_final = +car.dataset.precio;
     price_car.innerHTML = precio_final.toLocaleString("es");
+    let container_div = document.getElementById("container_search");
+    container_div.style.display = "none";
+    let searcher = document.getElementById("input_search");
+    searcher.value = "";
+
 }
 
 async function sellProducts(url) {
@@ -2170,10 +2180,10 @@ function convertArray() {
 
     let array_producto = [];
 
-    console.log(products);
+
     products.forEach((element) => {
         let id_product = element.dataset.date.split("-");
-        console.log(id_product);
+
         array_producto.push({
             id_item: id_product[0],
             cantidad: id_product[1],
@@ -2196,10 +2206,7 @@ async function getShowInventory(url){
             "Authorization": `Bearer ${token}`
         }
 
-
-
     });
-
 
     let data = await response.json();
 
@@ -2216,7 +2223,6 @@ async function getShowInventory(url){
         });
 
         $("#table_inventory").DataTable({
-            // Desactiva la paginación para mostrar todos los nodos
             info: true,
             responsive: true,
             order: [[0, "asc"]],
@@ -2287,7 +2293,6 @@ async function createInventory(url){
         });
 
         $("#table_inventory").DataTable({
-            // Desactiva la paginación para mostrar todos los nodos
             info: true,
             responsive: true,
             order: [[0, "asc"]],
@@ -2371,7 +2376,7 @@ async function createInventory(url){
         });
 
         $("#table_inventory").DataTable({
-            // Desactiva la paginación para mostrar todos los nodos
+
             info: true,
             responsive: true,
             order: [[0, "asc"]],
@@ -2441,7 +2446,6 @@ async function createInventory(url){
 
 
         $("#table_inventory").DataTable({
-            // Desactiva la paginación para mostrar todos los nodos
             info: true,
             responsive: true,
             order: [[0, "asc"]],
@@ -2489,7 +2493,6 @@ async function createInventory(url){
         let element_container = document.getElementById("container_menu");
         element_container.innerHTML = data.html;
         $("#history_sell_table").DataTable({
-            // Desactiva la paginación para mostrar todos los nodos
             info: true,
             responsive: true,
             order: [[0, "asc"]],
@@ -2571,7 +2574,6 @@ async function searchRange(url){
         element_container.innerHTML = data.html;
 
         $("#history_sell_table").DataTable({
-            // Desactiva la paginación para mostrar todos los nodos
             info: true,
             responsive: true,
             order: [[0, "asc"]],
@@ -2594,7 +2596,6 @@ async function searchRange(url){
 
 
         $("#history_sell_table_unit").DataTable({
-            // Desactiva la paginación para mostrar todos los nodos
             info: true,
             responsive: true,
             order: [[0, "asc"]],
@@ -2618,4 +2619,13 @@ async function searchRange(url){
         new_date.value = aux;
 
     }
+}
+
+function emptyCart(){
+
+    let cart = document.getElementById("container_shop");
+    let price_car = document.getElementById("price_total_car");
+    cart.innerHTML = "";
+    price_car.innerHTML = 0;
+    cart.dataset.precio = 0;
 }

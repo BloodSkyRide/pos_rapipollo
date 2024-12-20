@@ -9,7 +9,6 @@
 
         <div class="card-body">
             <hr>
-
             <center>
                 <h4 class="text-secondary"><i class="fa-solid fa-boxes-stacked"></i>&nbsp;&nbsp;Crear productos inventario</h4>
             </center>
@@ -19,28 +18,24 @@
 
                 <div class="col-sm">
                     <div class="form-group">
-                        <label for="nombre">Nombre producto:</label>
-                        <input type="text" class="form-control" id="nombre_producto_inventario"
-                            placeholder="Nombre producto..." name="nombre">
+                        <label for="nombre_producto_inventario">Nombre producto:</label>
+                        <input type="text" class="form-control" id="nombre_producto_inventario" placeholder="Nombre producto..." name="nombre" autocomplete="off">
                     </div>
                     <div class="form-group">
-                        <label for="unidades">Unidades disponibles:</label>
-                        <input type="number" class="form-control" id="unidades_inventario"
-                            placeholder="Ingresa la cantidad de unidades" name="unidades">
+                        <label for="unidades_inventario">Unidades disponibles:</label>
+                        <input type="number" class="form-control" id="unidades_inventario" placeholder="Ingresa la cantidad de unidades" name="unidades" autocomplete="off">
                     </div>
                 </div>
 
                 <div class="col-sm">
                     <div class="form-group">
-                        <label for="imagen_product">Tope minimo notificación:</label>
-                        <input type="number" class="form-control" id="tope_min" name="imagen_product"
-                            placeholder="Tope minimio...">
+                        <label for="tope_min">Tope minimo notificación:</label>
+                        <input type="number" class="form-control" id="tope_min" name="imagen_product" placeholder="Tope minimio..." autocomplete="off">
                     </div>
 
                     <div class="form-group">
                         <label for="imagen_product">Precio costo:</label>
-                        <input type="number" class="form-control" id="costo" name="imagen_product"
-                            placeholder="Precio costo...">
+                        <input type="number" class="form-control" id="costo" name="imagen_product" placeholder="Precio costo..." autocomplete="off">
                     </div>
                 </div>
 

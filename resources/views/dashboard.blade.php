@@ -97,7 +97,7 @@
             <a href="https://www.mypantalla.com/" class="brand-link" target="blank">
                 <img src="{{ asset('assets/small_logo.png') }}" alt="Mypantalla"
                     class="brand-image img-circle elevation-3 shadow">
-                <span class="brand-text font-weight-light">MyPantalla</span>
+                <span class="brand-text font-weight-light">Rapi Pollo</span>
             </a>
 
             <!-- Sidebar -->
@@ -113,7 +113,7 @@
                 </div>
 
                 <!-- SidebarSearch Form -->
-                <div class="form-inline">
+                {{-- <div class="form-inline">
                     <div class="input-group" data-widget="sidebar-search">
                         <input class="form-control form-control-sidebar" type="search" placeholder="Search"
                             aria-label="Search">
@@ -123,21 +123,21 @@
                             </button>
                         </div>
                     </div>
-                </div>
+                </div> --}}
 
                 <nav class="mt-2">
                     <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu"
                         data-accordion="false">
                         <h1 class="nav-header">MENÚ</h1>
-                        <li class="nav-item">
+                        {{-- <li class="nav-item">
                             <a class="nav-link" type="button" onclick="getShowNotices('{{route('getShowNotices')}}')">
                                 <i class="fa-regular fa-newspaper"></i>&nbsp;&nbsp;
                                 <p>
                                     Noticias
-                                    {{-- <span class="right badge badge-danger">New</span> --}}
+                                    
                                 </p>
                             </a>
-                        </li>
+                        </li> --}}
 
 
 
@@ -152,7 +152,7 @@
                         </li>
 
                         @if ($array['rol'] === 'administrador')
-                            <li class="nav-item">
+                            {{-- <li class="nav-item">
                                 <a class="nav-link menu_dashboard" onclick="showManageLabor('{{ route('showManageLabor') }}')"
                                     type="button">
                                     <i class="fa-solid fa-clipboard"></i>&nbsp;&nbsp;
@@ -161,7 +161,7 @@
 
                                     </p>
                                 </a>
-                            </li>
+                            </li> --}}
 
 
 
@@ -203,7 +203,7 @@
 
 
 
-                            <li class="nav-item">
+                            {{-- <li class="nav-item">
                                 <a type="button" class="nav-link menu_dashboard"
                                     onclick="getViewHistoryLabors('{{ route('getShowHistorySubLabors') }}')">
                                     <i class="fa-solid fa-list"></i>&nbsp;&nbsp;
@@ -211,7 +211,7 @@
                                         Historial de labores
                                     </p>
                                 </a>
-                            </li>
+                            </li> --}}
                         @endif
 
                         @if ($array['rol'] === 'usuario')

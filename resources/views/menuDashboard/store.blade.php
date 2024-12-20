@@ -21,6 +21,7 @@
 
             <center>
                 <h4 class="text-secondary"><i class="fa-solid fa-cart-shopping"></i>&nbsp;&nbsp;Carrito de productos</h4>
+                <div class="d-flex justify-content-end"><a onclick="emptyCart()" type="button" title="Vaciar carrito"><i class="fa-solid fa-trash text-danger"></i></a></div>
             </center>
             <hr>
 
@@ -33,6 +34,7 @@
                     <th scope="col">Nombre</th>
                     <th scope="col">Descripcion</th>
                     <th scope="col">Unidades</th>
+                    <th scope="col">Precio/unidad</th>
                     <th scope="col">Precio</th>
                   </tr>
                 </thead>

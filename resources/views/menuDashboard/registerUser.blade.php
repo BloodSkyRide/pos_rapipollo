@@ -104,3 +104,5 @@
         </div>
     </form>
 </div>
+
+<span class="text-secondary">Desarrollado por SANTIAGO GALLEGO  <a href="https://wa.me/573108805964" target="_blank"><i style="color: #075e54" class="fa-brands fa-whatsapp"></i>&nbsp;&nbsp;3108805964</a></span>

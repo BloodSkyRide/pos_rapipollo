@@ -21,14 +21,12 @@
 
                 <div class="col">
                     <div class="form-group">
-                        <label for="nombre">Nombre producto:</label>
-                        <input type="text" class="form-control" id="nombre_producto" placeholder="nombre" autocomplete="off"
-                            name="nombre">
+                        <label for="nombre_producto">Nombre producto:</label>
+                        <input type="text" class="form-control" id="nombre_producto" placeholder="nombre producto..." autocomplete="off" name="nombre">
                     </div>
                     <div class="form-group">
-                        <label for="unidades">Precio producto:</label>
-                        <input type="number" step="0.001" class="form-control" id="precio_producto" autocomplete="off"
-                            placeholder="Ingresa la cantidad de unidades" name="unidades">
+                        <label for="precio_producto">Precio producto:</label>
+                        <input type="number" step="0.001" class="form-control" id="precio_producto" autocomplete="off" placeholder="Ingresa la cantidad de unidades" name="precio_producto">
                     </div>
 
                     <div class="form-group">
@@ -37,8 +35,7 @@
                     </div>
 
                     <div id="previewContainer">
-                        <center><img id="imagePreview" src="" alt="Previsualización de imagen"
-                                style="display: none; max-width: 300px; margin-top: 10px;"></center>
+                        <center><img id="imagePreview" src="" alt="Previsualización de imagen" style="display: none; max-width: 300px; margin-top: 10px;"></center>
                     </div>
 
                 </div>
