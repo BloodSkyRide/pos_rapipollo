@@ -65,6 +65,7 @@
                             <th scope="col">Fecha Creación</th>
                             <th scope="col">Tope Minimo</th>
                             <th scope="col">Precio Costo</th>
+                            <th scope="col">Total/Producto</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -87,6 +88,7 @@
                                 <td>{{ $producto['fecha_creacion'] }}</td>
                                 <td><span class="badge badge-warning">{{ $producto['tope_min'] }}</span></td>
                                 <td><i class="fa-solid fa-dollar-sign text-success"></i>&nbsp;&nbsp;{{number_format($producto['precio_costo'], 0, '', '.')}}</td>
+                                <td><i class="fa-solid fa-dollar-sign text-success"></i>&nbsp;&nbsp;{{number_format($producto['unidades_disponibles'] *  $producto['precio_costo'], 0, '', '.')}}</td>
                             </tr>
         
                             @php
@@ -95,6 +97,18 @@
                         @endforeach
                     </tbody>
                 </table>    
+            </div>
+
+            <div class="row p-5">
+
+                <div class="col-sm">
+                    <h3>Total inventario:</h3>
+                </div>
+                <div class="col-sm d-flex justify-content-end">
+                    <h3><i
+                            class="fa-solid fa-dollar-sign text-success"></i>&nbsp;&nbsp;{{ number_format($total, 0, '', '.') }}
+                    </h3>
+                </div>
             </div>
         </div>
 

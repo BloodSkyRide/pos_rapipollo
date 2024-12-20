@@ -114,9 +114,16 @@ aside a {
     max-width: 50px;
 }
 
+.product_search{
+
+    width: 100%;
+
+}
+
 .product_search:hover{
 
     background-color: #412988 0.3s ease;
+    width: 100%;
 }
 
 #container_search{

@@ -2,13 +2,13 @@
 @foreach ($productos as $producto)
 <div class="row">
     <div class="col-sm-1">
-      <img src="{{$producto['url_imagen']}}" alt="Imagen pollo" width="60" height="60">
+      <img src="{{$producto['url_imagen']}}" alt="representacion de {{$producto['nombre_producto']}}" width="60" height="60">
     </div>
     <div class="col-sm-6">
       <div >
         <div class="d-flex align-items-center">
           <label for="" class="mt-2 d-block">&nbsp;&nbsp;{{$producto['nombre_producto']}}:</label>
-          <span class="mr-4 mt-1">&nbsp;&nbsp;Pollo asado + 4 papas + 4 arepas + 1 gaseosa litro y medio.</span>
+          <span class="mr-4 mt-1">&nbsp;&nbsp;{{$producto['descripcion']}}</span>
         </div>
 
         <div><label for="">&nbsp;&nbsp;Precio:</label> <span><i class="fa-solid fa-dollar-sign text-success"></i>&nbsp;&nbsp;<span id="price-{{$producto['id_producto']}}">{{$producto['precio']}}</span></span></div>

@@ -2160,6 +2160,8 @@ async function sellProducts(url) {
         car.innerHTML = "";
         total.innerHTML = "0";
         input_search.value= "";
+
+        let price = document.getElementById("container_shop").dataset.precio = 0;
     }
 }
 
@@ -2274,16 +2276,36 @@ async function createInventory(url){
     });
 
     if(data.status){
-        nombre_producto.value = "";
-        unidades.value = "";
-        tope_min.value = "";
-        precio_costo.value = "";
-        
+
+        let element_container = document.getElementById("container_menu");
+        element_container.innerHTML = data.html;
 
 
         Toast.fire({
             icon: "success",
             title: "Producto añadido al inventario de manera Satisfactoria.!",
+        });
+
+        $("#table_inventory").DataTable({
+            // Desactiva la paginación para mostrar todos los nodos
+            info: true,
+            responsive: true,
+            order: [[0, "asc"]],
+            lengthChange: false,
+            autoWidth: false,
+            buttons: ["copy", "csv", "excel", "pdf", "print", "colvis"],
+            language: {
+                search: "Buscar en la tabla:",
+                lengthMenu: "Mostrar _MENU_ registros",
+                info: "Mostrando _START_ a _END_ de _TOTAL_ registros",
+                paginate: {
+                    first: "Primero",
+                    last: "Último",
+                    next: "Siguiente",
+                    previous: "Anterior",
+                },
+                emptyTable: "No hay datos disponibles",
+            },
         });
     }
     else{
@@ -2488,6 +2510,112 @@ async function createInventory(url){
             },
         });
 
+
+        $("#history_sell_table_unit").DataTable({
+            // Desactiva la paginación para mostrar todos los nodos
+            info: true,
+            responsive: true,
+            order: [[0, "asc"]],
+            lengthChange: false,
+            autoWidth: false,
+            buttons: ["copy", "csv", "excel", "pdf", "print", "colvis"],
+            language: {
+                search: "Buscar en la tabla:",
+                lengthMenu: "Mostrar _MENU_ registros",
+                info: "Mostrando _START_ a _END_ de _TOTAL_ registros",
+                paginate: {
+                    first: "Primero",
+                    last: "Último",
+                    next: "Siguiente",
+                    previous: "Anterior",
+                },
+                emptyTable: "No hay datos disponibles",
+            },
+        });
+
     }
 
  }
+
+async function searchRange(url){
+
+    let fecha = document.getElementById("reservationdate");
+    let aux = fecha.value;
+
+    const token = localStorage.getItem("access_token");
+    let response = await fetch(url,{
+
+        method: "POST",
+        headers:{
+
+
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${token}`
+
+        },
+        body: JSON.stringify({
+
+            fecha: fecha.value
+
+        })
+    });
+
+
+    let data = await response.json();
+
+
+    if(data.status){
+
+        let element_container = document.getElementById("container_menu");
+
+        element_container.innerHTML = data.html;
+
+        $("#history_sell_table").DataTable({
+            // Desactiva la paginación para mostrar todos los nodos
+            info: true,
+            responsive: true,
+            order: [[0, "asc"]],
+            lengthChange: false,
+            autoWidth: false,
+            buttons: ["copy", "csv", "excel", "pdf", "print", "colvis"],
+            language: {
+                search: "Buscar en la tabla:",
+                lengthMenu: "Mostrar _MENU_ registros",
+                info: "Mostrando _START_ a _END_ de _TOTAL_ registros",
+                paginate: {
+                    first: "Primero",
+                    last: "Último",
+                    next: "Siguiente",
+                    previous: "Anterior",
+                },
+                emptyTable: "No hay datos disponibles",
+            },
+        });
+
+
+        $("#history_sell_table_unit").DataTable({
+            // Desactiva la paginación para mostrar todos los nodos
+            info: true,
+            responsive: true,
+            order: [[0, "asc"]],
+            lengthChange: false,
+            autoWidth: false,
+            buttons: ["copy", "csv", "excel", "pdf", "print", "colvis"],
+            language: {
+                search: "Buscar en la tabla:",
+                lengthMenu: "Mostrar _MENU_ registros",
+                info: "Mostrando _START_ a _END_ de _TOTAL_ registros",
+                paginate: {
+                    first: "Primero",
+                    last: "Último",
+                    next: "Siguiente",
+                    previous: "Anterior",
+                },
+                emptyTable: "No hay datos disponibles",
+            },
+        });
+        let new_date = document.getElementById("reservationdate");
+        new_date.value = aux;
+
+    }
+}

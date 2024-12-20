@@ -148,4 +148,6 @@ Route::post('/delete', [inventoryController::class, 'deleteInventory'])->name("d
 
 Route::get('/getShowHistorySell', [historySellController::class, 'getShowHistorySell'])->name("getShowHistorySell")->middleware(["verifyTokenHeader"]);
 
+Route::post('/searchForRangeHistory', [historySellController::class, 'searchForRangeHistory'])->name("searchForRangeHistory")->middleware(["verifyTokenHeader"]);
+
 

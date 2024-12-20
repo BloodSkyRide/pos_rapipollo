@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 
 class modelInventario extends Model
 {
@@ -76,6 +77,14 @@ class modelInventario extends Model
         return self::where("id_item",$id_item)
         ->delete();
 
+
+    }
+
+    public static function getTotalInventory(){
+
+
+        return self::select(DB::raw('SUM(unidades_disponibles * precio_costo) AS total'))
+        ->value('total');
 
     }
     

@@ -11,7 +11,10 @@ class inventoryController extends Controller
     public function getShowInventory(Request $request){
 
         $productos_inventario = modelInventario::getAllProducts();
-        $render = view("menuDashboard.inventory", ["productos" => $productos_inventario])->render();
+        $total_inventory = modelInventario::getTotalInventory();
+
+
+        $render = view("menuDashboard.inventory", ["productos" => $productos_inventario,"total" => $total_inventory])->render();
 
         return response()->json(["status" => true, "html" => $render]);
 
@@ -32,10 +35,10 @@ class inventoryController extends Controller
 
         $insert_product_inventory = modelInventario::createProduct($data_inventory);
 
-        $result = ($insert_product_inventory) ? true: false;
-
-        return response()->json(["status" => $result]);
-
+        
+        if($insert_product_inventory) return self::getShowInventory($request);
+        else return response()->json(["status" => false]);
+        
     }
 
 

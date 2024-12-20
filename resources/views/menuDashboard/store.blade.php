@@ -17,8 +17,7 @@
                   </button>
               </div>
           </div>
-
-          <div id="container_search" class="product_search" ></div>
+          <div id="container_search" class="product_search mt-1" ></div>
 
             <center>
                 <h4 class="text-secondary"><i class="fa-solid fa-cart-shopping"></i>&nbsp;&nbsp;Carrito de productos</h4>

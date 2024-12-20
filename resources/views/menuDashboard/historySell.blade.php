@@ -1,93 +1,178 @@
-<div class="container-fluid">
 
-    <div class="card card-default">
-        <div class="card-header" style="background-color: #0F318F">
-            <h3 class="card-title" style="color: white; font-weight: bold;"><i
-                    class="fa-solid fa-list"></i>&nbsp;&nbsp;Crear productos</h3>
-            <div class="card-tools"></div>
-        </div>
+    <div class="d-flex justify-contente-center">
+        <div class="form-group d-flex">
+            <div>
 
-        <div class="card-body">
-            <hr>
-
-            <center>
-                <h4 class="text-secondary">Historial de ventas </h4>
-            </center>
-            <hr>
-            <div class="table-responsive">
-
-                <table class="table" id="history_sell_table">
-                    <thead class="thead-dark">
-                        <tr>
-                            <th scope="col">#</th>
-                            <th scope="col">Producto</th>
-                            <th scope="col">Descripción Producto</th>
-                            <th scope="col">Unidades</th>
-                            <th scope="col">Cajero Responsable</th>
-                            <th scope="col">Cédula</th>
-                            <th scope="col">Hora</th>
-                            <th scope="col">Total venta</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-
-                        @php
-                            $flagg = 1;
-                        @endphp
-
-                        @foreach ($historial as $item)
-                            <tr>
-                                <th scope="row">{{ $flagg }}</th>
-                                <td>{{ $item['nombre_producto_venta'] }}</td>
-                                <td>{{ $item['descripcion_producto_venta'] }}</td>
-                                <td>{{ $item['unidades_venta'] }}</td>
-                                <td>{{ $item['nombre_cajero'] }}</td>
-                                <td>{{ $item['id_user_cajero'] }}</td>
-                                <td>{{ $item['hora'] }}</td>
-                                <td><i class="fa-solid fa-dollar-sign text-success"></i>&nbsp;&nbsp;{{number_format($item['total_venta'], 0, '', '.')}} </td>
-                            </tr>
-
-                            @php
-                                $flagg++;
-                            @endphp
-                        @endforeach
-                    </tbody>
-                </table>
-
+                <label>Fecha:</label>
+                <div class="input-group date"  data-target-input="nearest">
+                    <input type="date" class="form-control" data-target="#reservationdate" id="reservationdate">
+                    <div class="input-group-append" data-target="#reservationdate" data-toggle="datetimepicker">
+                        <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                    </div>
+                    
+                    <button onclick="searchRange('{{route('searchForRangeHistory')}}')" class="btn btn-primary ml-2" style=""><i class="fa-regular fa-calendar-days"></i>&nbsp;&nbsp;Buscar ventas por fecha</button>
+                </div>
             </div>
-
-            <div class="row p-5">
-
-                <div class="col-sm"><h3>Total vendido:</h3></div>
-                <div class="col-sm d-flex justify-content-end"><h3><i class="fa-solid fa-dollar-sign text-success"></i>&nbsp;&nbsp;{{number_format($total, 0, '', '.')}}</h3></div>
-            </div>
-        </div>
-
-
+          </div>
     </div>
 
-    <!-- Modal -->
-    <div class="modal fade" id="modal_state" tabindex="-1">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header bg-info">
-                    <h5 class="modal-title" id="exampleModalLabel">Solicitud de hora extra</h5>
-                    <button type="button" class="close" data-dismiss="modal">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
+<div class="col-sm-12">
+    <div class="card card-primary card-tabs">
+        <div class="card-header p-0 pt-1">
+            <ul class="nav nav-tabs" id="custom-tabs-two-tab" role="tablist">
+                <li class="pt-2 px-3">
+                    <h3 class="card-title"><i class="fa-solid fa-list"></i>&nbsp;&nbsp;Historiales de venta</h3>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" id="custom-tabs-two-home-tab" data-toggle="pill"
+                        href="#custom-tabs-two-home" role="tab" aria-controls="custom-tabs-two-home"
+                        aria-selected="true">Historial ventas</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" id="custom-tabs-two-profile-tab" data-toggle="pill"
+                        href="#custom-tabs-two-profile" role="tab" aria-controls="custom-tabs-two-profile"
+                        aria-selected="false">Historial ventas unificadas</a>
+                </li>
+            </ul>
+        </div>
+        <div class="card-body">
+            <div class="tab-content" id="custom-tabs-two-tabContent">
+                <div class="tab-pane fade show active" id="custom-tabs-two-home" role="tabpanel"
+                    aria-labelledby="custom-tabs-two-home-tab">
+
+                    <center>
+                        <h4 class="text-secondary">Historial de ventas </h4>
+                    </center>
+                    <hr>
+                    <div class="table-responsive">
+
+                        <table class="table" id="history_sell_table">
+                            <thead class="thead-dark">
+                                <tr>
+                                    <th scope="col">#</th>
+                                    <th scope="col">Representación</th>
+                                    <th scope="col">Producto</th>
+                                    <th scope="col">Descripción Producto</th>
+                                    <th scope="col">Unidades</th>
+                                    <th scope="col">Cajero Responsable</th>
+                                    <th scope="col">Cédula</th>
+                                    <th scope="col">Hora</th>
+                                    <th scope="col">Fecha</th>
+                                    <th scope="col">Total venta</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+
+                                @php
+                                    $flagg = 1;
+                                @endphp
+
+                                @foreach ($historial as $item)
+                                    <tr>
+                                        <th scope="row">{{ $flagg }}</th>
+                                        <td><img src="{{ $item['url_imagen'] }}" alt="Representación de {{ $item['nombre_producto_venta'] }}" width="40" height="40"></td>
+                                        <td>{{ $item['nombre_producto_venta'] }}</td>
+                                        <td>{{ $item['descripcion_producto_venta'] }}</td>
+                                        <td>{{ $item['unidades_venta'] }}</td>
+                                        <td>{{ $item['nombre_cajero'] }}</td>
+                                        <td>{{ $item['id_user_cajero'] }}</td>
+                                        <td>{{ $item['hora'] }}</td>
+                                        <td>{{ $item['fecha'] }}</td>
+                                        <td><i
+                                                class="fa-solid fa-dollar-sign text-success"></i>&nbsp;&nbsp;{{ number_format($item['total_venta'], 0, '', '.') }}
+                                        </td>
+                                    </tr>
+
+                                    @php
+                                        $flagg++;
+                                    @endphp
+                                @endforeach
+                            </tbody>
+                        </table>
+
+                    </div>
+
+                    <div class="row p-5">
+
+                        <div class="col-sm">
+                            <h3>Total vendido:</h3>
+                        </div>
+                        <div class="col-sm d-flex justify-content-end">
+                            <h3><i
+                                    class="fa-solid fa-dollar-sign text-success"></i>&nbsp;&nbsp;{{ number_format($total, 0, '', '.') }}
+                            </h3>
+                        </div>
+                    </div>
                 </div>
-                <div class="modal-body" id="content_modal_state">
+                <div class="tab-pane fade" id="custom-tabs-two-profile" role="tabpanel"
+                    aria-labelledby="custom-tabs-two-profile-tab">
+
+                    <center>
+                        <h4 class="text-secondary">Historial de ventas/unificadas </h4>
+                    </center>
+                    <hr>
+                    <div class="table-responsive">
+
+                        <table class="table" id="history_sell_table_unit">
+                            <thead class="thead-dark">
+                                <tr>
+                                    <th scope="col">#</th>
+                                    <th scope="col">Representación</th>
+                                    <th scope="col">Producto</th>
+                                    <th scope="col">Descripción Producto</th>
+                                    <th scope="col">Unidades vendidas</th>
+                                    <th scope="col">Cajero Responsable</th>
+                                    <th scope="col">Cédula</th>
+                                    <th scope="col">Fecha</th>
+                                    <th scope="col">Total venta/producto</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+
+                                @php
+                                    $flagg = 1;
+                                @endphp
+
+                                @foreach ($unificado as $item)
+                                    <tr>
+                                        <th scope="row">{{ $flagg }}</th>
+                                        <td><img src="{{ $item['url_imagen'] }}" alt="Representación de {{ $item['nombre_producto_venta'] }}" width="50" height="50"></td>
+                                        <td>{{ $item['nombre_producto_venta'] }}</td>
+                                        <td>{{ $item['descripcion_producto_venta'] }}</td>
+                                        <td>{{ $item['total_cantidad'] }}</td>
+                                        <td>{{ $item['nombre_cajero'] }}</td>
+                                        <td>{{ $item['id_user_cajero'] }}</td>
+                                        <td>{{ $item['fecha'] }}</td>
+                                        <td>
+                                            <i class="fa-solid fa-dollar-sign text-success"></i>&nbsp;&nbsp;{{ number_format($item['total_vendido'], 0, '', '.') }}
+                                        </td>
+                                    </tr>
+
+                                    @php
+                                        $flagg++;
+                                    @endphp
+                                @endforeach
+                            </tbody>
+                        </table>
+
+                    </div>
+
+                    <div class="row p-5">
+
+                        <div class="col-sm">
+                            <h3>Total vendido:</h3>
+                        </div>
+                        <div class="col-sm d-flex justify-content-end">
+                            <h3><i
+                                    class="fa-solid fa-dollar-sign text-success"></i>&nbsp;&nbsp;{{ number_format($total, 0, '', '.') }}
+                            </h3>
+                        </div>
+                    </div>
+
                 </div>
-                <div class="modal-footer">
-                    <button type="button"
-                        onclick="changeStateNotification('{{ route('changeStateOverTime') }}', 'Rechazar')"
-                        class="btn btn-danger" data-dismiss="modal"><i
-                            class="fa-solid fa-xmark"></i>&nbsp;&nbsp;Rechazar</button>
-                    <button type="button"
-                        onclick="changeStateNotification('{{ route('changeStateOverTime') }}', 'Aceptar')"
-                        class="btn btn-success"><i class="fa-solid fa-check"></i>&nbsp;&nbsp;Aceptar</button>
-                </div>
+
             </div>
         </div>
+        <!-- /.card -->
     </div>
 </div>
