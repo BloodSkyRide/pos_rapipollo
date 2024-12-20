@@ -86,7 +86,7 @@
                                 <td><span class="{{$badge}}">{{ $producto['unidades_disponibles'] }}</span></td>
                                 <td>{{ $producto['fecha_creacion'] }}</td>
                                 <td><span class="badge badge-warning">{{ $producto['tope_min'] }}</span></td>
-                                <td><i class="fa-solid fa-dollar-sign text-success"></i> {{ $producto['precio_costo'] }}</td>
+                                <td><i class="fa-solid fa-dollar-sign text-success"></i>&nbsp;&nbsp;{{number_format($producto['precio_costo'], 0, '', '.')}}</td>
                             </tr>
         
                             @php

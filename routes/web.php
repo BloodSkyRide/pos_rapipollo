@@ -12,6 +12,7 @@ use App\Http\Controllers\payrollController;
 use App\Http\Controllers\overTimeController;
 use App\Http\Controllers\createProductController;
 use App\Http\Controllers\inventoryController;
+use App\Http\Controllers\historySellController;
 
 
 
@@ -145,6 +146,6 @@ Route::put('/editInventory', [inventoryController::class, 'editInventory'])->nam
 
 Route::post('/delete', [inventoryController::class, 'deleteInventory'])->name("deleteInventory")->middleware(["verifyTokenHeader"]);
 
-
+Route::get('/getShowHistorySell', [historySellController::class, 'getShowHistorySell'])->name("getShowHistorySell")->middleware(["verifyTokenHeader"]);
 
 

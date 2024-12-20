@@ -17,4 +17,22 @@ class modelSell extends Model
         return self::insert($data);
 
     }
+
+    public static function getSells($fecha){
+
+
+        return self::where("fecha", $fecha)
+        ->orderby("fecha", "desc")
+        ->get();
+
+
+    }
+
+
+    public static function totalSells($fecha){
+
+        return self::where("fecha", $fecha)
+        ->sum('total_venta');
+
+    }
 }

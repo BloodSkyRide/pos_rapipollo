@@ -14,31 +14,55 @@
                 <h4 class="text-secondary">Historial de ventas </h4>
             </center>
             <hr>
+            <div class="table-responsive">
 
-            <table class="table">
-                <thead class="thead-dark">
-                  <tr>
-                    <th scope="col">#</th>
-                    <th scope="col">Producto</th>
-                    <th scope="col">Descripción Producto</th>
-                    <th scope="col">Unidades</th>
-                    <th scope="col">Cajero Responsable</th>
-                    <th scope="col">Cédula</th>
-                    <th scope="col">Hora</th>
-                    <th scope="col">Total venta</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <th scope="row">1</th>
-                    <td>Mark</td>
-                    <td>Otto</td>
-                    <td>@mdo</td>
-                  </tr>
-                </tbody>
-              </table>
+                <table class="table" id="history_sell_table">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Producto</th>
+                            <th scope="col">Descripción Producto</th>
+                            <th scope="col">Unidades</th>
+                            <th scope="col">Cajero Responsable</th>
+                            <th scope="col">Cédula</th>
+                            <th scope="col">Hora</th>
+                            <th scope="col">Total venta</th>
+                        </tr>
+                    </thead>
+                    <tbody>
 
+                        @php
+                            $flagg = 1;
+                        @endphp
+
+                        @foreach ($historial as $item)
+                            <tr>
+                                <th scope="row">{{ $flagg }}</th>
+                                <td>{{ $item['nombre_producto_venta'] }}</td>
+                                <td>{{ $item['descripcion_producto_venta'] }}</td>
+                                <td>{{ $item['unidades_venta'] }}</td>
+                                <td>{{ $item['nombre_cajero'] }}</td>
+                                <td>{{ $item['id_user_cajero'] }}</td>
+                                <td>{{ $item['hora'] }}</td>
+                                <td><i class="fa-solid fa-dollar-sign text-success"></i>&nbsp;&nbsp;{{number_format($item['total_venta'], 0, '', '.')}} </td>
+                            </tr>
+
+                            @php
+                                $flagg++;
+                            @endphp
+                        @endforeach
+                    </tbody>
+                </table>
+
+            </div>
+
+            <div class="row p-5">
+
+                <div class="col-sm"><h3>Total vendido:</h3></div>
+                <div class="col-sm d-flex justify-content-end"><h3><i class="fa-solid fa-dollar-sign text-success"></i>&nbsp;&nbsp;{{number_format($total, 0, '', '.')}}</h3></div>
+            </div>
         </div>
+
 
     </div>
 

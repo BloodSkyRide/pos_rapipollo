@@ -344,7 +344,7 @@
                         </li>
 
                         <li class="nav-item">
-                            <a class="nav-link menu_dashboard" onclick="getShowInventory('{{route('getShowInventory')}}')"
+                            <a class="nav-link menu_dashboard" onclick="getShowHistorySell('{{route('getShowHistorySell')}}')"
                                 type="button" id="payroll_nav">
                                 <i class="fa-solid fa-list"></i>&nbsp;&nbsp;
                                 <p>
