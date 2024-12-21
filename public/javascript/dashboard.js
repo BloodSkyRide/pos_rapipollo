@@ -79,7 +79,6 @@ async function register_user(url) {
         },
     }).done(function (res) {
         if (res.status) {
-
             let element_container = document.getElementById("container_menu");
             element_container.innerHTML = res.html;
         }
@@ -154,7 +153,6 @@ async function sendUser(url) {
 //         initializeDataTable();
 //     }
 // }
-
 
 // function addSubLabors() {
 //     let item = document.getElementById("item_labor").value.trim();
@@ -242,7 +240,7 @@ async function sendUser(url) {
 // }
 
 // async function delteSubLaborTable(url) {
-    
+
 //     let column_subgroups = document.querySelectorAll(
 //         `td > div.div_checknox > input[type="checkbox"]:checked`
 //     );
@@ -461,7 +459,6 @@ async function sendModalAccept(url) {
 
     if (response.status) {
         let data = await response.json();
-
 
         let element_container = document.getElementById("container_menu");
 
@@ -761,7 +758,6 @@ async function getShowReportAssists(url) {
 
 async function getShowAdminUsers(url) {
     const token = localStorage.getItem("access_token");
-
 
     let response = await fetch(url, {
         method: "GET",
@@ -1206,7 +1202,6 @@ async function changePassword(url) {
 }
 
 function verifyPasswords(pass1, pass2) {
-
     return pass1 === pass2 ? true : false;
 }
 
@@ -1274,7 +1269,6 @@ async function searchRangeAssist() {
     let data = await response.json();
 
     if (data.status) {
-
         let element_container = document.getElementById("container_menu");
         element_container.innerHTML = data.html;
 
@@ -1670,14 +1664,12 @@ async function sendPdf(url) {
     }
 
     function collectPayRolls(iterations) {
-
         let array = [];
 
         for (let i = 0; i < iterations; i++) {
             let elemento = document.getElementById(`input_pdf${i}`);
 
             if (elemento.files.length > 0) {
-
                 let element = elemento.files[0];
                 let data = elemento.dataset.code;
 
@@ -1693,10 +1685,8 @@ async function sendPdf(url) {
 }
 
 function verifyNodes() {
-
     let table = document.getElementById("table_payroll");
     let inputs = table.querySelectorAll("input.input_lenght").length;
-
 }
 
 // function selectAllSubLabors() {
@@ -1843,7 +1833,6 @@ async function createProduct(url) {
     let data = await response.json();
 
     if (data.status) {
-
         let element_container = document.getElementById("container_menu");
         element_container.innerHTML = data.html;
 
@@ -1890,9 +1879,7 @@ function addItemInventory() {
 
     let id_item = item.value;
 
-    if(id_item === "selected"){
-
-
+    if (id_item === "selected") {
         var Toast = Swal.mixin({
             toast: true,
             position: "top-end",
@@ -1908,8 +1895,6 @@ function addItemInventory() {
         return 0;
     }
     let name = item.selectedOptions[0].text;
-
-
 
     let container = document.getElementById("container_tr");
 
@@ -2005,16 +1990,15 @@ async function getShowStore(url) {
 
         const div_search = document.getElementById("container_search");
 
-        document.addEventListener("click", (event)=> {
-
-            if (!div_search.contains(event.target) && event.target.id !== "container_search") {
-
+        document.addEventListener("click", (event) => {
+            if (
+                !div_search.contains(event.target) &&
+                event.target.id !== "container_search"
+            ) {
                 div_search.style.display = "none";
-
             }
-        })
-    }else{
-
+        });
+    } else {
         var Toast = Swal.mixin({
             toast: true,
             position: "top-end",
@@ -2026,8 +2010,6 @@ async function getShowStore(url) {
             icon: "error",
             title: "Debes iniciar la asistencia para poder ingresar al panel de venta.!",
         });
-
-
     }
 }
 
@@ -2067,9 +2049,7 @@ function lessAndPlus(operator, identifier) {
     let price_convert = parseInt(price.dataset.price.replace(".", ""), 10);
     let price_finally = document.getElementById(`price-${identifier}`);
 
-    if(result.value < 1){
-
-
+    if (result.value < 1) {
         var Toast = Swal.mixin({
             toast: true,
             position: "top-end",
@@ -2086,20 +2066,23 @@ function lessAndPlus(operator, identifier) {
 
     if (operator === "+") {
         result.value = convert_number + 1;
-        price_finally.innerHTML = (price_convert * (convert_number + 1)).toLocaleString("es");
+        price_finally.innerHTML = (
+            price_convert *
+            (convert_number + 1)
+        ).toLocaleString("es");
     } else {
         result.value = convert_number - 1;
-        price_finally.innerHTML = (price_convert * (convert_number - 1)).toLocaleString("es");;
+        price_finally.innerHTML = (
+            price_convert *
+            (convert_number - 1)
+        ).toLocaleString("es");
     }
 }
 
 function addProductToCar(name, description, identifier, url_image, price_unit) {
-
     let result = document.getElementById(`content_input-${identifier}`);
 
-    if(result.value < 1){
-
-
+    if (result.value < 1) {
         var Toast = Swal.mixin({
             toast: true,
             position: "top-end",
@@ -2125,12 +2108,15 @@ function addProductToCar(name, description, identifier, url_image, price_unit) {
                     <td>${name}</td>
                     <td>${description}</td>
                     <td>${amunt.value}</td>
-                    <td><i class='fa-solid fa-dollar-sign text-success'></i>&nbsp;&nbsp;${(+price_unit).toLocaleString("es")}</td>
-                    <td><i class='fa-solid fa-dollar-sign text-success'></i>&nbsp;&nbsp;${convert_price.toLocaleString("es")}</td>
+                    <td><i class='fa-solid fa-dollar-sign text-success'></i>&nbsp;&nbsp;${(+price_unit).toLocaleString(
+                        "es"
+                    )}</td>
+                    <td><i class='fa-solid fa-dollar-sign text-success'></i>&nbsp;&nbsp;${convert_price.toLocaleString(
+                        "es"
+                    )}</td>
                   </tr>`;
 
-
-    let convert_price_final = parseInt(convert_price.replace(/\./g, ''), 10);
+    let convert_price_final = parseInt(convert_price.replace(/\./g, ""), 10);
 
     car.innerHTML += data_product;
     let price_end = parseInt(car.dataset.precio) + convert_price_final;
@@ -2144,7 +2130,6 @@ function addProductToCar(name, description, identifier, url_image, price_unit) {
     container_div.style.display = "none";
     let searcher = document.getElementById("input_search");
     searcher.value = "";
-
 }
 
 async function sellProducts(url) {
@@ -2180,13 +2165,15 @@ async function sellProducts(url) {
         });
 
         let car = document.getElementById("container_shop");
-        let total = document.getElementById("price_total_car")
+        let total = document.getElementById("price_total_car");
         let input_search = document.getElementById("input_search");
         car.innerHTML = "";
         total.innerHTML = "0";
-        input_search.value= "";
+        input_search.value = "";
 
-        let price = document.getElementById("container_shop").dataset.precio = 0;
+        let price = (document.getElementById(
+            "container_shop"
+        ).dataset.precio = 0);
     }
 }
 
@@ -2194,7 +2181,6 @@ function convertArray() {
     let products = document.querySelectorAll(".row_product");
 
     let array_producto = [];
-
 
     products.forEach((element) => {
         let id_product = element.dataset.date.split("-");
@@ -2208,27 +2194,19 @@ function convertArray() {
     return array_producto;
 }
 
-
-async function getShowInventory(url){
-
+async function getShowInventory(url) {
     const token = localStorage.getItem("access_token");
-    let  response = await fetch(url, {
-
-        method:"GET",
-        headers:{
-
+    let response = await fetch(url, {
+        method: "GET",
+        headers: {
             "Content-Type": "application/json",
-            "Authorization": `Bearer ${token}`
-        }
-
+            Authorization: `Bearer ${token}`,
+        },
     });
 
     let data = await response.json();
 
-
-    if(data.status){
-
-
+    if (data.status) {
         let element_container = document.getElementById("container_menu");
         element_container.innerHTML = data.html;
 
@@ -2258,34 +2236,27 @@ async function getShowInventory(url){
             },
         });
     }
-
 }
 
-
-async function createInventory(url){
-
+async function createInventory(url) {
     let nombre_producto = document.getElementById("nombre_producto_inventario");
     let unidades = document.getElementById("unidades_inventario");
     let tope_min = document.getElementById("tope_min");
     let precio_costo = document.getElementById("costo");
 
     const token = localStorage.getItem("access_token");
-    let response = await fetch(url,{
-
+    let response = await fetch(url, {
         method: "POST",
-        headers:{
-
+        headers: {
             "Content-Type": "application/json",
-            "Authorization": `Bearer ${token}`
+            Authorization: `Bearer ${token}`,
         },
         body: JSON.stringify({
             nombre_producto: nombre_producto.value,
             unidades: unidades.value,
             tope_min: tope_min.value,
-            precio_costo: precio_costo.value
-        })
-
-
+            precio_costo: precio_costo.value,
+        }),
     });
 
     let data = await response.json();
@@ -2296,11 +2267,9 @@ async function createInventory(url){
         timer: 3000,
     });
 
-    if(data.status){
-
+    if (data.status) {
         let element_container = document.getElementById("container_menu");
         element_container.innerHTML = data.html;
-
 
         Toast.fire({
             icon: "success",
@@ -2327,47 +2296,36 @@ async function createInventory(url){
                 emptyTable: "No hay datos disponibles",
             },
         });
-    }
-    else{
-
+    } else {
         Toast.fire({
             icon: "error",
             title: "No se pudó guardar el producto en el inmventario, comuniquese con el desarrollador!",
         });
-
     }
-
 }
 
-
- async function changeInventory(url){
-
-
-    let units = document.getElementById('adicion_unidades');
-    let id_item_inventory = document.getElementById('select_item_inventory');
-    let price_cost = document.getElementById('price_costo');
+async function changeInventory(url) {
+    let units = document.getElementById("adicion_unidades");
+    let id_item_inventory = document.getElementById("select_item_inventory");
+    let price_cost = document.getElementById("price_costo");
 
     const token = localStorage.getItem("access_token");
-    let response = await fetch(url,{
+    let response = await fetch(url, {
         method: "PUT",
         headers: {
-
             "Content-Type": "application/json",
-            "Authorization": `Bearer ${token}`
+            Authorization: `Bearer ${token}`,
         },
         body: JSON.stringify({
-
             unidades: units.value,
             id_inventory: id_item_inventory.value,
-            precio_costo: price_cost.value
-        })
+            precio_costo: price_cost.value,
+        }),
     });
 
     let data = await response.json();
 
-
-    if(data.status){
-
+    if (data.status) {
         $("#modal_edit_inventory").modal("hide");
 
         let element_container = document.getElementById("container_menu");
@@ -2391,7 +2349,6 @@ async function createInventory(url){
         });
 
         $("#table_inventory").DataTable({
-
             info: true,
             responsive: true,
             order: [[0, "asc"]],
@@ -2411,39 +2368,27 @@ async function createInventory(url){
                 emptyTable: "No hay datos disponibles",
             },
         });
-
     }
+}
 
- }
-
- async function deleteInventory(url){
-
-    let id_item_inventory = document.getElementById('select_item_inventory');
+async function deleteInventory(url) {
+    let id_item_inventory = document.getElementById("select_item_inventory");
     const token = localStorage.getItem("access_token");
-    let response = await fetch(url,{
-
+    let response = await fetch(url, {
         method: "POST",
         headers: {
-            
-
             "Content-Type": "application/json",
-            "Authorization": `Bearer ${token}`
-            
+            Authorization: `Bearer ${token}`,
         },
 
         body: JSON.stringify({
-
-            id_item_inventory: id_item_inventory.value
-
-        })
-
-
+            id_item_inventory: id_item_inventory.value,
+        }),
     });
 
     let data = await response.json();
 
-    if(data.status){
-
+    if (data.status) {
         $("#modal_edit_inventory").modal("hide");
 
         let element_container = document.getElementById("container_menu");
@@ -2482,30 +2427,21 @@ async function createInventory(url){
             },
         });
     }
+}
 
-
- }
-
-
- async function getShowHistorySell(url){
-
-
+async function getShowHistorySell(url) {
     const token = localStorage.getItem("access_token");
-    let response = await fetch(url,{
+    let response = await fetch(url, {
         method: "GET",
         headers: {
-
             "Content-Type": "application/json",
-            "Authorization": `Bearer ${token}`
-        }
+            Authorization: `Bearer ${token}`,
+        },
     });
-
 
     let data = await response.json();
 
-
-    if(data.status){
-
+    if (data.status) {
         let element_container = document.getElementById("container_menu");
         element_container.innerHTML = data.html;
         $("#history_sell_table").DataTable({
@@ -2528,7 +2464,6 @@ async function createInventory(url){
                 emptyTable: "No hay datos disponibles",
             },
         });
-
 
         $("#history_sell_table_unit").DataTable({
             // Desactiva la paginación para mostrar todos los nodos
@@ -2551,39 +2486,28 @@ async function createInventory(url){
                 emptyTable: "No hay datos disponibles",
             },
         });
-
     }
+}
 
- }
-
-async function searchRange(url){
-
+async function searchRange(url) {
     let fecha = document.getElementById("reservationdate");
     let aux = fecha.value;
 
     const token = localStorage.getItem("access_token");
-    let response = await fetch(url,{
-
+    let response = await fetch(url, {
         method: "POST",
-        headers:{
-
+        headers: {
             "Content-Type": "application/json",
-            "Authorization": `Bearer ${token}`
-
+            Authorization: `Bearer ${token}`,
         },
         body: JSON.stringify({
-
-            fecha: fecha.value
-
-        })
+            fecha: fecha.value,
+        }),
     });
-
 
     let data = await response.json();
 
-
-    if(data.status){
-
+    if (data.status) {
         let element_container = document.getElementById("container_menu");
 
         element_container.innerHTML = data.html;
@@ -2608,7 +2532,6 @@ async function searchRange(url){
                 emptyTable: "No hay datos disponibles",
             },
         });
-
 
         $("#history_sell_table_unit").DataTable({
             info: true,
@@ -2632,12 +2555,10 @@ async function searchRange(url){
         });
         let new_date = document.getElementById("reservationdate");
         new_date.value = aux;
-
     }
 }
 
-function emptyCart(){
-
+function emptyCart() {
     let cart = document.getElementById("container_shop");
     let price_car = document.getElementById("price_total_car");
     cart.innerHTML = "";
