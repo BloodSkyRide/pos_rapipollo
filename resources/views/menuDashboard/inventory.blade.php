@@ -112,7 +112,7 @@
     </div>
 
     <!-- Modal -->
-    <div class="modal fade" id="modal_edit_inventory" tabindex="-1">
+    <div class="modal fade" id="modal_edit_inventory">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header bg-info">

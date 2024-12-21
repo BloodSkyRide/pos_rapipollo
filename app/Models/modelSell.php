@@ -71,4 +71,21 @@ class modelSell extends Model
             ->groupBy('id_producto_venta') 
             ->get();
     }
+
+
+
+    public static function getTotalForUsers($fecha){
+
+
+        return self::select(
+            "id_user_cajero",
+            "nombre_cajero",
+            DB::raw('SUM(unidades_venta) AS total_unidades'),
+            DB::raw('SUM(total_venta) AS total_venta')
+        )
+        ->where("fecha", $fecha)
+        ->groupBy('id_user_cajero', 'nombre_cajero') 
+        ->get();
+
+    }
 }

@@ -26,7 +26,9 @@
             <hr>
 
 
-            
+            <div class="table-responsive">
+
+
               <table class="table">
                 <thead>
                   <tr>
@@ -41,7 +43,9 @@
                 <tbody id="container_shop" data-precio="0">
                 </tbody>
               </table>
-              
+
+            </div>
+
               <div class="p-5">
 
                 <div class="row">
@@ -59,24 +63,4 @@
 
 
     </div>
-
-    <!-- Modal -->
-<div class="modal fade" id="modal_state" tabindex="-1" >
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header bg-info">
-          <h5 class="modal-title" id="exampleModalLabel">Solicitud de hora extra</h5>
-          <button type="button" class="close" data-dismiss="modal" >
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-body" id="content_modal_state">
-        </div>
-        <div class="modal-footer">
-          <button type="button" onclick="changeStateNotification('{{route('changeStateOverTime')}}', 'Rechazar')" class="btn btn-danger" data-dismiss="modal"><i class="fa-solid fa-xmark"></i>&nbsp;&nbsp;Rechazar</button>
-          <button type="button" onclick="changeStateNotification('{{route('changeStateOverTime')}}', 'Aceptar')" class="btn btn-success"><i class="fa-solid fa-check"></i>&nbsp;&nbsp;Aceptar</button>
-        </div>
-      </div>
-    </div>
-  </div>
 </div>

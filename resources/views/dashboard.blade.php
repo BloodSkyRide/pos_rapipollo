@@ -152,6 +152,7 @@
                         </li>
 
                         @if ($array['rol'] === 'administrador')
+                        
                             {{-- <li class="nav-item">
                                 <a class="nav-link menu_dashboard" onclick="showManageLabor('{{ route('showManageLabor') }}')"
                                     type="button">
@@ -162,7 +163,6 @@
                                     </p>
                                 </a>
                             </li> --}}
-
 
 
                             <li class="nav-item">
@@ -226,7 +226,7 @@
                             </li>
 
 
-                            <li class="nav-item">
+                            {{-- <li class="nav-item">
                                 <a class="nav-link menu_dashboard" type="button"
                                     onclick="getShowLabors('{{ route('showMyLabors') }}')">
                                     <i class="fa-solid fa-user-clock"></i>&nbsp;&nbsp;
@@ -234,16 +234,7 @@
                                         Mis labores
                                     </p>
                                 </a>
-                            </li>
-
-                            <li class="nav-item">
-                                <a  class="nav-link menu_dashboard">
-                                    <i class="fa-solid fa-clock"></i>&nbsp;&nbsp;
-                                    <p>
-                                        Reporte horas extras
-                                    </p>
-                                </a>
-                            </li>
+                            </li> --}}
                         @endif
 
 
@@ -284,17 +275,7 @@
                             </a>
                         </li>
 
-                        @else
-    
 
-                        <li class="nav-item">
-                            <a  class="nav-link menu_dashboard" type="button" onclick="getShowHistoryOverTime('{{route('getShowOverTime')}}')">
-                                <i class="fa-solid fa-person-circle-plus"></i>&nbsp;&nbsp;
-                                <p>
-                                    Solicitar horas extras
-                                </p>
-                            </a>
-                        </li>
 
                         <li class="nav-item">
                             <a class="nav-link menu_dashboard" onclick="getHistoryPayRoll('{{ route('getHistoryPayRoll') }}','{{ $array['cedula'] }}')"
@@ -307,10 +288,6 @@
                         </li>
 
 
-
-
-                        @endif
-
                         <li class="nav-item">
                             <a class="nav-link menu_dashboard" onclick="createProduct('{{ route('createProduct') }}')"
                                 type="button" id="payroll_nav">
@@ -320,6 +297,31 @@
                                 </p>
                             </a>
                         </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link menu_dashboard" onclick="getShowInventory('{{route('getShowInventory')}}')"
+                                type="button" id="payroll_nav">
+                                <i class="fa-solid fa-boxes-stacked"></i>&nbsp;&nbsp;
+                                <p>
+                                    Inventario
+                                </p>
+                            </a>
+                        </li>
+
+                        @else
+    
+        
+                        <li class="nav-item">
+                            <a  class="nav-link menu_dashboard" type="button" onclick="getShowHistoryOverTime('{{route('getShowOverTime')}}')">
+                                <i class="fa-solid fa-person-circle-plus"></i>&nbsp;&nbsp;
+                                <p>
+                                    Solicitar horas extras
+                                </p>
+                            </a>
+                        </li>
+
+                        @endif
+
 
 
                         <li class="nav-item">
@@ -333,15 +335,6 @@
                         </li>
 
 
-                        <li class="nav-item">
-                            <a class="nav-link menu_dashboard" onclick="getShowInventory('{{route('getShowInventory')}}')"
-                                type="button" id="payroll_nav">
-                                <i class="fa-solid fa-boxes-stacked"></i>&nbsp;&nbsp;
-                                <p>
-                                    Inventario
-                                </p>
-                            </a>
-                        </li>
 
                         <li class="nav-item">
                             <a class="nav-link menu_dashboard" onclick="getShowHistorySell('{{route('getShowHistorySell')}}')"

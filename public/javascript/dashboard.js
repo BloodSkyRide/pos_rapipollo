@@ -2013,6 +2013,21 @@ async function getShowStore(url) {
 
             }
         })
+    }else{
+
+        var Toast = Swal.mixin({
+            toast: true,
+            position: "top-end",
+            showConfirmButton: false,
+            timer: 3000,
+        });
+
+        Toast.fire({
+            icon: "error",
+            title: "Debes iniciar la asistencia para poder ingresar al panel de venta.!",
+        });
+
+
     }
 }
 
@@ -2409,9 +2424,11 @@ async function createInventory(url){
 
         method: "POST",
         headers: {
+            
 
             "Content-Type": "application/json",
             "Authorization": `Bearer ${token}`
+            
         },
 
         body: JSON.stringify({
@@ -2443,7 +2460,6 @@ async function createInventory(url){
             icon: "success",
             title: "Se eliminó correctamente el item del inventario!",
         });
-
 
         $("#table_inventory").DataTable({
             info: true,
@@ -2550,7 +2566,6 @@ async function searchRange(url){
 
         method: "POST",
         headers:{
-
 
             "Content-Type": "application/json",
             "Authorization": `Bearer ${token}`
