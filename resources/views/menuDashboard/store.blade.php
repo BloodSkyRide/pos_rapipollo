@@ -34,7 +34,7 @@
                   <tr>
                     <th scope="col">Representación</th>
                     <th scope="col">Nombre</th>
-                    <th scope="col">Descripcion</th>
+                    <th scope="col">Descripción</th>
                     <th scope="col">Unidades</th>
                     <th scope="col">Precio/unidad</th>
                     <th scope="col">Precio</th>
@@ -53,9 +53,17 @@
                   <div class="col-sm d-flex justify-content-end"><h3><i class="fa-solid fa-dollar-sign text-success"></i>&nbsp;&nbsp;<span id="price_total_car">0</span></h3></div>
                 </div>
               </div>
+              <div class="p-5">
+
+                <div class="row">
+                  <div class="col-sm "><div class="d-flex"><h3>Cambio:</h3></div></div>
+                  <div class="col-sm d-flex justify-content-end"><h3><i class="fa-solid fa-dollar-sign text-success"></i>&nbsp;&nbsp;<span id="price_total_car_cambio">0</span></h3></div>
+                </div>
+              </div>
             <div class="d-flex justify-content-center">
                 <button class="btn btn-success mr-2" onclick="sellProducts('{{route('sell')}}')"><i class="fa-solid fa-check"></i>&nbsp;&nbsp;Vender productos</button>
             <button class="btn btn-info" onclick="saveProduct('{{route('saveProduct')}}')"><i class="fa-solid fa-print"></i>&nbsp;&nbsp;Vender/Imprimir Recibo</button>
+            <button class="btn btn-primary ml-2" data-toggle="modal" data-target="#modal_cambio"><i class="fa-solid fa-repeat"></i>&nbsp;&nbsp;Cambio</button>
             </div>
             
         </div>
@@ -63,4 +71,28 @@
 
 
     </div>
+    <!-- Modal -->
+<div class="modal fade" id="modal_cambio"  aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Cambio</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+          <label for="edit_price">cambio:</label>
+          <input type="number" class="form-control" id="cambio"
+              placeholder="Modificar precio de costo..." autocomplete="off" name="costo">
+      </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+        <button onclick="change()" type="button" class="btn btn-primary">Calcular cambio</button>
+      </div>
+    </div>
+  </div>
+</div>
 </div>

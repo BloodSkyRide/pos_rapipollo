@@ -5,6 +5,8 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
+use function Laravel\Prompts\select;
+
 class modelProducts extends Model
 {
 
@@ -48,5 +50,50 @@ class modelProducts extends Model
 
         return self::where("id_producto", $id_product)
         ->first();
+    }
+
+    public static function getPathForId($id_item){
+
+
+        return self::where("id_producto", $id_item)
+        ->select("url_imagen")
+        ->first();
+    }
+
+    public static function modifyImage($id_item, $url){
+
+        return self::where("id_producto", $id_item)
+        ->update(["url_imagen" => $url]);
+
+
+    }
+
+
+    public static function modifyDescription($id_item,$description){
+
+
+        return self::where("id_producto", $id_item)
+        ->update(["descripcion" => $description]);
+    }
+
+    public static function modifyCost($id_item, $modify_cost){
+
+
+        return self::where("id_producto", $id_item)
+        ->update(["precio" => $modify_cost]);
+
+    }
+
+    public static function getAllProducts(){
+
+
+        return self::all();
+
+    }
+
+    public static function deleteRegister($id_item){
+
+        return self::where("id_producto", $id_item)
+        ->delete();
     }
 }

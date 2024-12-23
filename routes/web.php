@@ -150,4 +150,8 @@ Route::get('/getShowHistorySell', [historySellController::class, 'getShowHistory
 
 Route::post('/searchForRangeHistory', [historySellController::class, 'searchForRangeHistory'])->name("searchForRangeHistory")->middleware(["verifyTokenHeader"]);
 
+Route::post('/editCompund', [createProductController::class, 'editProductCompund'])->name("editProductCompund")->middleware(["verifyTokenHeader"]);
+
+Route::post('/deleteCompound', [createProductController::class, 'deleteCompound'])->name("deleteCompound")->middleware(["verifyTokenHeader"]);
+
 

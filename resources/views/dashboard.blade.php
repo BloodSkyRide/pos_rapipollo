@@ -225,6 +225,15 @@
                                 </a>
                             </li>
 
+                            <li class="nav-item">
+                                <a class="nav-link menu_dashboard" onclick="getHistoryPayRoll('{{ route('getHistoryPayRoll') }}','{{ $array['cedula'] }}')"
+                                    type="button" id="payroll_nav">
+                                    <i class="fa-solid fa-dollar-sign"></i>&nbsp;&nbsp;
+                                    <p>
+                                        Nomina
+                                    </p>
+                                </a>
+                            </li>
 
                             {{-- <li class="nav-item">
                                 <a class="nav-link menu_dashboard" type="button"
@@ -276,16 +285,6 @@
                         </li>
 
 
-
-                        <li class="nav-item">
-                            <a class="nav-link menu_dashboard" onclick="getHistoryPayRoll('{{ route('getHistoryPayRoll') }}','{{ $array['cedula'] }}')"
-                                type="button" id="payroll_nav">
-                                <i class="fa-solid fa-dollar-sign"></i>&nbsp;&nbsp;
-                                <p>
-                                    Nomina
-                                </p>
-                            </a>
-                        </li>
 
 
                         <li class="nav-item">

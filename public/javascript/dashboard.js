@@ -1861,6 +1861,31 @@ async function createProduct(url) {
                 imagePreview.style.display = "none";
             }
         });
+
+
+        const input2 = document.getElementById("edit_imagen_product");
+
+        input2.addEventListener("change", (event) =>{
+
+            const file = event.target.files[0];
+            let imagePreview = document.getElementById("imagePreview2");
+            if (file) {
+                const reader = new FileReader();
+
+                // Leer el archivo como una URL de datos
+                reader.onload = function (e) {
+                    imagePreview.src = e.target.result; // Establecer la URL en el atributo src de la imagen
+                    imagePreview.style.display = "block"; // Mostrar la imagen
+                };
+
+                reader.readAsDataURL(file); // Iniciar la lectura del archivo
+            } else {
+                // Si no hay archivo, ocultar la previsualización
+                imagePreview.style.display = "none";
+            }
+
+        })
+
     }
 }
 
@@ -2108,9 +2133,7 @@ function addProductToCar(name, description, identifier, url_image, price_unit) {
                     <td>${name}</td>
                     <td>${description}</td>
                     <td>${amunt.value}</td>
-                    <td><i class='fa-solid fa-dollar-sign text-success'></i>&nbsp;&nbsp;${(+price_unit).toLocaleString(
-                        "es"
-                    )}</td>
+                    <td><i class='fa-solid fa-dollar-sign text-success'></i>&nbsp;&nbsp;${(+price_unit).toLocaleString("es")}</td>
                     <td><i class='fa-solid fa-dollar-sign text-success'></i>&nbsp;&nbsp;${convert_price.toLocaleString(
                         "es"
                     )}</td>
@@ -2167,6 +2190,8 @@ async function sellProducts(url) {
         let car = document.getElementById("container_shop");
         let total = document.getElementById("price_total_car");
         let input_search = document.getElementById("input_search");
+        let total_cambio = document.getElementById("price_total_car_cambio");
+        total_cambio.textContent = 0;
         car.innerHTML = "";
         total.innerHTML = "0";
         input_search.value = "";
@@ -2561,7 +2586,150 @@ async function searchRange(url) {
 function emptyCart() {
     let cart = document.getElementById("container_shop");
     let price_car = document.getElementById("price_total_car");
+    let total_cambio = document.getElementById("price_total_car_cambio");
     cart.innerHTML = "";
     price_car.innerHTML = 0;
     cart.dataset.precio = 0;
+    total_cambio.textContent = 0;
+}
+
+async function modifyItemCompound(url){
+
+   
+    let item_compound = document.getElementById('select_item_compund');
+
+    if(item_compound.value === "selected"){
+
+
+        var Toast = Swal.mixin({
+            toast: true,
+            position: "top-end",
+            showConfirmButton: false,
+            timer: 3000,
+        });
+
+        Toast.fire({
+            icon: "error",
+            title: "Por favor selecciona un item de venta válido para modificar",
+        });
+
+        return 0;
+
+    }
+    let edit_decription = document.getElementById("edit_description");
+    let modify_cost = document.getElementById("edit_price");
+    let image = document.getElementById("edit_imagen_product");
+    const file = image.files[0];
+    let form = new FormData();
+
+    form.append("id_item_compund", item_compound.value);
+    form.append("edit_description", edit_decription.value);
+    form.append("modify_cost", modify_cost.value);
+    form.append("image", file);
+
+    const token = localStorage.getItem("access_token");
+    let response = await fetch(url, {
+        method: "POST",
+        headers:{
+            Authorization: `Bearer ${token}`,
+        },
+        body: form
+
+    });
+
+    let data = await response.json();
+
+
+    if (data.status){
+
+        var Toast = Swal.mixin({
+            toast: true,
+            position: "top-end",
+            showConfirmButton: false,
+            timer: 6000,
+        });
+
+        Toast.fire({
+            icon: "success",
+            title: data.message,
+        });
+
+
+        item_compound.value = "selected";
+        modify_cost.value = "";
+        image.value = "";
+        let imagePreview = document.getElementById("imagePreview2");
+
+        imagePreview.src = "";
+
+    }
+
+}
+
+async function deleteProductSeller(url){
+
+    let id_item = document.getElementById("select_item_compund");
+
+    const token = localStorage.getItem("access_token");
+    let response = await fetch(url,{
+
+        method: "POST",
+        headers: {
+
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${token}`
+        },
+        body: JSON.stringify({
+
+            id_item: id_item.value
+
+        })
+
+    });
+
+
+    let data = await response.json();
+
+
+    if(data.status){
+
+        var Toast = Swal.mixin({
+            toast: true,
+            position: "top-end",
+            showConfirmButton: false,
+            timer: 6000,
+        });
+
+        Toast.fire({
+            icon: "success",
+            title: "Se eliminó satisfactoriamente el producto de venta!",
+        });
+        id_item.value = "selected";
+
+    }
+}
+
+
+function change(){
+
+    let price_car = document.getElementById("price_total_car");
+
+    let price_total = price_car.textContent;
+
+    let price_convert = price_total.replace(/\./g, '');
+
+    let int_price = +price_convert;
+
+    let change = document.getElementById("cambio").value
+
+    let less = +change - int_price;
+
+    let total_cambio = document.getElementById("price_total_car_cambio");
+
+    total_cambio.textContent = less.toLocaleString("es-ES");
+
+
+    $("#modal_cambio").modal("hide");
+
+
 }

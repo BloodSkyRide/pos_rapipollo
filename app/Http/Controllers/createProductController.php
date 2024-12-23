@@ -12,14 +12,126 @@ use App\Models\modelCompuesto;
 use App\Models\modelSell;
 use App\Models\modelAssits;
 use Tymon\JWTAuth\Facades\JWTAuth;
+use Illuminate\Support\Facades\Storage;
 
 class createProductController extends Controller
 {
+
+
+    private function deleteItem($id_item){
+
+        $get_original_path = modelProducts::getPathForId($id_item)->url_imagen;
+        $flag = 0;
+
+        
+        if(file_exists($get_original_path) && $get_original_path !== "storage/product_images/product_defect.png"){
+
+            $flag ++;
+            unlink($get_original_path);
+        }
+
+        if($get_original_path === "storage/product_images/product_defect.png") $flag++;
+
+        return ($flag > 0) ? true : false;
+
+    }
+
+
+    public function deleteCompound(Request $request){
+
+        $id_item = $request->id_item;
+
+        $delete_image = self::deleteItem($id_item);
+
+        if($delete_image){
+
+
+            $delete_register = modelProducts::deleteRegister($id_item);
+            
+            return response()->json(["status" => true]);
+        }
+
+        return response()->json(["status" => false]);
+    }
+
+
+    public function editProductCompund(Request $request){
+
+
+        $id_item = $request->id_item_compund;
+        $description = $request->edit_description;
+        $modify_cost = $request->modify_cost;
+        $image = $request->image;
+
+        $confirm = [];
+        
+        if($image =! "undefined"){
+
+            array_push($confirm, "imagen");
+            
+            $get_new_path = self::modifyImage($id_item, $image);
+
+            modelProducts::modifyImage($id_item, $get_new_path);
+        }
+        if(!empty($description)){
+            array_push($confirm, "descripción");
+            modelProducts::modifyDescription($id_item,$description);
+            
+        }
+
+        if(!empty($modify_cost)){
+            
+            array_push($confirm, "costo");
+            
+            modelProducts::modifyCost($id_item, $modify_cost);
+        }
+
+
+        $final = implode(', ', $confirm);
+
+        if(count($confirm) > 0) return response()->json(["status" => true, "message" => "Se editó de manera satisfactoria los siguientes cambios: ".$final]);
+        else return response()->json(["status" => false]);
+
+        
+    }
+
+
+
+    private function modifyImage($id_item, $image){
+
+
+        $file_name = $image->getClientOriginalName();
+        
+        $query_path = modelProducts::getPathForId($id_item)->url_imagen;
+        
+        $get_original_path = modelProducts::getPathForId($id_item)->url_imagen;
+        
+        
+
+        if(file_exists($get_original_path) && $get_original_path !== "storage/product_images/product_defect.png"){
+
+            
+            
+            unlink($get_original_path);
+        }
+
+        $base_name = pathinfo($file_name, PATHINFO_FILENAME);
+        $root_path = 'storage/product_images';
+        $hoy = Carbon::now()->format('Y-m-d');
+
+        $name_final = $base_name . "_" . $hoy;
+        $path = $image->storeAs("product_images", $name_final . ".png", "public");
+        return $root_path . "/" . $name_final . ".png";
+
+    }
+
+
     public function createProducts(Request $request)
     {
 
         $productos_inventario = modelInventario::getAllProducts();
-        $render = view("menuDashboard.createProduct", ["productos" => $productos_inventario])->render();
+        $products_compound = modelProducts::getAllProducts();
+        $render = view("menuDashboard.createProduct", ["productos" => $productos_inventario, "compuestos" => $products_compound])->render();
 
         return response()->json(["status" => true, "html" => $render]);
     }
@@ -48,8 +160,15 @@ class createProductController extends Controller
         $hoy = date("Y-m-d");
 
         $image = $request->image;
+ 
+        $url_image = "";
 
-        $url_image = self::saveImageProduct($image);
+        if($image === "undefined"){
+
+            $url_image = "storage/product_images/product_defect.png";
+            
+
+        }else $url_image = self::saveImageProduct($image);
 
 
 

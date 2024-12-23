@@ -27,4 +27,14 @@ class modelCompuesto extends Model
 
     }
 
+
+    public static function getAllCompound(){
+
+
+        return self::all();
+    }
+
+
+
+
 }
