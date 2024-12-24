@@ -64,8 +64,10 @@ class createProductController extends Controller
         $image = $request->image;
 
         $confirm = [];
+
         
-        if($image =! "undefined"){
+        
+        if($image !== "undefined"){
 
             array_push($confirm, "imagen");
             
