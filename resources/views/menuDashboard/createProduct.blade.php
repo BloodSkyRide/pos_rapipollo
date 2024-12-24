@@ -104,7 +104,52 @@
                 <button class="btn btn-info mt-3" data-toggle="modal" data-target="#modal_change_product"><i
                         class="fa-solid fa-pen-to-square"></i>&nbsp;&nbsp;Modificar producto</button>
             </center>
+
+            <hr>
+            <center><h3>Total productos información</h3></center>
+    
+            <div class="table-responsive">
+    
+                <table class="table" id="table_products_total">
+                    <thead class="thead-dark">
+                      <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Item Respresentación</th>
+                        <th scope="col">Producto</th>
+                        <th scope="col">Descripción</th>
+                        <th scope="col">Fecha creación</th>
+                        <th scope="col">Precio</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+    
+                        @php
+                            $flag = 1;
+                        @endphp
+                        @foreach ($compuestos as $item)
+                        <tr>
+                          <th scope="row">{{$flag}}</th>
+                          <td><img src="{{$item['url_imagen']}}" alt="item {{$item['nombre_producto']}}" width="40" height="40"></td>
+                          <td>{{$item['nombre_producto']}}</td>
+                          <td>{{$item['descripcion']}}</td>
+                          <td>{{$item['fecha_creacion']}}</td>
+                          <td><i class="fa-solid fa-dollar-sign text-success"></i>&nbsp;&nbsp;<span class="badge badge-success">{{number_format($item['precio'], 0, '', '.')}}</span></td>
+                        </tr>
+    
+                        @php
+                        $flag  ++;
+                        @endphp
+                            
+                        @endforeach
+                    </tbody>
+                  </table>
+            </div>
         </div>
+
+ 
+
+          
+
 
     </div>
 

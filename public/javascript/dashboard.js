@@ -1884,7 +1884,30 @@ async function createProduct(url) {
                 imagePreview.style.display = "none";
             }
 
-        })
+        });
+
+        $("#table_products_total").DataTable({
+            // Desactiva la paginación para mostrar todos los nodos
+            info: true,
+            responsive: true,
+            order: [[0, "asc"]],
+            lengthChange: false,
+            autoWidth: false,
+            buttons: ["copy", "csv", "excel", "pdf", "print", "colvis"],
+            language: {
+                search: "Buscar en la tabla:",
+                lengthMenu: "Mostrar _MENU_ registros",
+                info: "Mostrando _START_ a _END_ de _TOTAL_ registros",
+                paginate: {
+                    first: "Primero",
+                    last: "Último",
+                    next: "Siguiente",
+                    previous: "Anterior",
+                },
+                emptyTable: "No hay datos disponibles",
+            },
+        });
+
 
     }
 }

@@ -24,7 +24,7 @@ class createProductController extends Controller
         $flag = 0;
 
         
-        if(file_exists($get_original_path) && $get_original_path !== "storage/product_images/product_defect.png"){
+        if(file_exists($get_original_path) && $get_original_path !== "storage/ct_/product_defect.png"){
 
             $flag ++;
             unlink($get_original_path);
