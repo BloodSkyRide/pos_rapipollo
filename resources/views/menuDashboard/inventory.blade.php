@@ -10,7 +10,7 @@
         <div class="card-body">
             <hr>
             <center>
-                <h4 class="text-secondary"><i class="fa-solid fa-boxes-stacked"></i>&nbsp;&nbsp;Crear productos inventario</h4>
+                <h4 class="text-secondary"><i class="fa-solid fa-boxes-stacked"></i>&nbsp;&nbsp;Crear productos materia prima</h4>
             </center>
             <hr>
 

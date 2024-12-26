@@ -11,7 +11,7 @@
             <hr>
 
             <center>
-                <h4 class="text-secondary">Crear productos</h4>
+                <h4 class="text-secondary">Crear productos de venta</h4>
             </center>
             <hr>
 
