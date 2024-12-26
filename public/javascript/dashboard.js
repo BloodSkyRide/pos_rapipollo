@@ -2513,7 +2513,7 @@ async function getShowHistorySell(url) {
         $("#history_sell_table").DataTable({
             info: true,
             responsive: true,
-            order: [[0, "asc"]],
+            order: [[7, "desc"]],
             lengthChange: false,
             autoWidth: false,
             buttons: ["copy", "csv", "excel", "pdf", "print", "colvis"],
