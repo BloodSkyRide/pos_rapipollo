@@ -138,9 +138,21 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="adicion_unidades">Añadir unidades:</label>
+                        <label for="adicion_unidades">Cambiar nombre item inventario:</label>
+                        <input type="text" class="form-control" id="name_edit_inventory"
+                            placeholder="añadir unidades al inventario..." autocomplete="off" name="nombre">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="adicion_unidades">Adicionar unidades:</label>
                         <input type="number" class="form-control" id="adicion_unidades"
                             placeholder="añadir unidades al inventario..." autocomplete="off" name="nombre">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="adicion_unidades">Establecer unidades:</label>
+                        <input type="number" class="form-control" id="establishing_units"
+                            placeholder="Establecer unidades inventario..." autocomplete="off" name="nombre">
                     </div>
 
                     <div class="form-group">

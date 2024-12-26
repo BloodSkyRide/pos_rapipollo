@@ -96,4 +96,11 @@ class modelProducts extends Model
         return self::where("id_producto", $id_item)
         ->delete();
     }
+
+    public static function editName($id_item, $name){
+
+        return self::where("id_producto", $id_item)
+        ->update(["nombre_producto" => $name]);
+
+    }
 }

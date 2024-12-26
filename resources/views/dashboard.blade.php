@@ -292,7 +292,7 @@
                                 type="button" id="payroll_nav">
                                 <i class="fa-solid fa-cart-plus"></i>&nbsp;&nbsp;
                                 <p>
-                                    Crear producto
+                                    Crear producto venta
                                 </p>
                             </a>
                         </li>
@@ -302,7 +302,7 @@
                                 type="button" id="payroll_nav">
                                 <i class="fa-solid fa-boxes-stacked"></i>&nbsp;&nbsp;
                                 <p>
-                                    Inventario
+                                    Crear materia prima
                                 </p>
                             </a>
                         </li>

@@ -47,23 +47,43 @@ class inventoryController extends Controller
         $unidades = $request->unidades;
         $id_inventory = $request->id_inventory;
         $precio_costo = $request->precio_costo;
+        $name_inventory = $request->nombre_inventario;
+        $units_establishing = $request->units_establishing;
 
-        if(empty($precio_costo)){
+        
+        if(!empty($units_establishing)){
             
             
+            modelInventario::changeUnits($id_inventory, $units_establishing);
+
+        }
+        if(!empty($precio_costo)){
+
+            modelInventario::updatePrice($id_inventory, $precio_costo);
+
+        }
+
+        if(!empty($name_inventory)){
+
+
+           modelInventario::changeName($id_inventory, $name_inventory);
+
+
+        }
+
+
+        if(!empty($unidades)){
+
             $get_units = modelInventario::getUnits($id_inventory)->unidades_disponibles;
 
             $units_final = $get_units + $unidades;
-
+    
             $insert_units = modelInventario::insertUnits($id_inventory, $units_final);
 
-
-
-        }else{
-
-            $insert = modelInventario::updatePrice($id_inventory, $precio_costo);
-
         }
+
+
+
 
 
         return self::getShowInventory($request);
