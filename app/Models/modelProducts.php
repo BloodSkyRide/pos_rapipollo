@@ -18,7 +18,7 @@ class modelProducts extends Model
     public static function insertProduct($data){
 
 
-        return self::create($data)->id; // se debe
+        return self::create($data)->id; // devuelve el id recien creado
 
     }
 

@@ -2513,7 +2513,7 @@ async function getShowHistorySell(url) {
         $("#history_sell_table").DataTable({
             info: true,
             responsive: true,
-            order: [[7, "desc"]],
+            // order: [[7, "desc"]],
             lengthChange: false,
             autoWidth: false,
             buttons: ["copy", "csv", "excel", "pdf", "print", "colvis"],
@@ -2581,7 +2581,7 @@ async function searchRange(url) {
         $("#history_sell_table").DataTable({
             info: true,
             responsive: true,
-            order: [[0, "asc"]],
+            // order: [[7, "desc"]],
             lengthChange: false,
             autoWidth: false,
             buttons: ["copy", "csv", "excel", "pdf", "print", "colvis"],
@@ -2619,6 +2619,7 @@ async function searchRange(url) {
                 emptyTable: "No hay datos disponibles",
             },
         });
+        
         let new_date = document.getElementById("reservationdate");
         new_date.value = aux;
     }

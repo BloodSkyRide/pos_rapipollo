@@ -38,7 +38,7 @@ class modelSell extends Model
         //     ->get();
         return self::join('productos_venta', 'historial_ventas.id_producto_venta', '=', 'productos_venta.id_producto') // INNER JOIN con la tabla 'users'
             ->where('historial_ventas.fecha', $fecha)
-            ->orderBy('historial_ventas.fecha', 'desc') 
+            ->orderBy('historial_ventas.hora', 'desc') 
             ->get();
     }
 
