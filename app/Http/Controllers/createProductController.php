@@ -288,7 +288,7 @@ class createProductController extends Controller
 
             // historial de ventas
 
-            $hour = date('h:i:s');
+            $hour = date('H:i:s');
             $fecha = date('Y-m-d');
 
             $total_venta = $decrement * $precio_producto;

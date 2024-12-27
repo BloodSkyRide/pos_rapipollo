@@ -2581,7 +2581,7 @@ async function searchRange(url) {
         $("#history_sell_table").DataTable({
             info: true,
             responsive: true,
-            order: [[0, "desc"]],
+            order: [[7, "desc"]],
             lengthChange: false,
             autoWidth: false,
             buttons: ["copy", "csv", "excel", "pdf", "print", "colvis"],
