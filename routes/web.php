@@ -13,6 +13,7 @@ use App\Http\Controllers\overTimeController;
 use App\Http\Controllers\createProductController;
 use App\Http\Controllers\inventoryController;
 use App\Http\Controllers\historySellController;
+use App\Http\Controllers\employeFoodController;
 
 
 
@@ -153,5 +154,10 @@ Route::post('/searchForRangeHistory', [historySellController::class, 'searchForR
 Route::post('/editCompund', [createProductController::class, 'editProductCompund'])->name("editProductCompund")->middleware(["verifyTokenHeader"]);
 
 Route::post('/deleteCompound', [createProductController::class, 'deleteCompound'])->name("deleteCompound")->middleware(["verifyTokenHeader"]);
+
+Route::get('/getShowEmployeeFood', [employeFoodController::class, 'getShowEmployeeFood'])->name("getShowEmployeeFood")->middleware(["verifyTokenHeader"]);
+
+Route::post('/insertFood', [employeFoodController::class, 'insertFood'])->name("insertFood")->middleware(["verifyTokenHeader"]);
+
 
 

@@ -346,11 +346,11 @@
                         </li>
 
                         <li class="nav-item">
-                            <a class="nav-link menu_dashboard" onclick="getShowHistorySell('{{route('getShowHistorySell')}}')"
+                            <a class="nav-link menu_dashboard" onclick="getShowEmployeeFood('{{route('getShowEmployeeFood')}}')"
                                 type="button" id="payroll_nav">
                                 <i class="fa-solid fa-utensils"></i>&nbsp;&nbsp;
                                 <p>
-                                    Alimentacion empleados
+                                    Alimentación empleados
                                 </p>
                             </a>
                         </li>

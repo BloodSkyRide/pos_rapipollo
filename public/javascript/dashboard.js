@@ -2779,3 +2779,74 @@ function change(){
 
 
 }
+async function getShowEmployeeFood(url){
+
+    const token = localStorage.getItem("access_token");
+    let response = await fetch(url,{
+        method: "GET",
+        headers:{
+
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${token}`
+        }
+    });
+
+
+    let data = await response.json();
+
+
+    if(data.status){
+
+        let element_container = document.getElementById("container_menu");
+        element_container.innerHTML = data.html;
+        $(".select2").select2();
+        $(".select2bs4").select2({
+            theme: "bootstrap4",
+        });
+
+    }
+
+}
+
+async function discountFoodEmployee(url){
+
+    let id_item_sell = document.getElementById("select_item_sell");
+    let name_employee = document.getElementById("name_employee");
+    let units = document.getElementById("units_employee");
+
+    const token = localStorage.getItem("access_token");
+    let response = await fetch(url,{
+        method: "POST",
+        headers:{
+
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${token}`
+        },
+        body: JSON.stringify({
+
+            id_item: id_item_sell.value,
+            name_employee: name_employee.value,
+            units: units.value
+
+
+        })
+    });
+
+
+    let data = await response.json();
+
+
+    if(data.status){
+
+        let element_container = document.getElementById("container_menu");
+        element_container.innerHTML = data.html;
+        $(".select2").select2();
+        $(".select2bs4").select2({
+            theme: "bootstrap4",
+        });
+
+
+    }
+
+
+}

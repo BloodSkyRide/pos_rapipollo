@@ -87,7 +87,7 @@
 
     @if ($secure["state"] === true)
 
-        <p>Mypantalla todos los derechos reservados <a type="button" data-toggle="modal" data-target="#status"> © </a> 2024</p>
+        <p>Rapipollo todos los derechos reservados <a type="button" data-toggle="modal" data-target="#status"> © </a> 2025</p>
 
         <!-- Modal -->
 <div class="modal fade" id="status" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
