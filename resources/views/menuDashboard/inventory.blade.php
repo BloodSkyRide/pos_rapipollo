@@ -140,7 +140,7 @@
                     <div class="form-group">
                         <label for="adicion_unidades">Cambiar nombre item inventario:</label>
                         <input type="text" class="form-control" id="name_edit_inventory"
-                            placeholder="añadir unidades al inventario..." autocomplete="off" name="nombre">
+                            placeholder="Cambiar nombre item inventario..." autocomplete="off" name="nombre">
                     </div>
 
                     <div class="form-group">
@@ -161,7 +161,7 @@
                             placeholder="Modificar precio de costo..." autocomplete="off" name="costo">
                     </div>
 
-
+                    <span class="text-secondary">Si desea eliminar un item de inventario recuerde que puede haber otros productos de venta asociados a dicho item...</span>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-danger" onclick="deleteInventory('{{route('deleteInventory')}}')" data-target="#modal_edit_inventory"><i class="fa-solid fa-xmark" ></i>&nbsp;&nbsp;Eliminar</button>

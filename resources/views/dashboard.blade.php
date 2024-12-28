@@ -345,6 +345,16 @@
                             </a>
                         </li>
 
+                        <li class="nav-item">
+                            <a class="nav-link menu_dashboard" onclick="getShowHistorySell('{{route('getShowHistorySell')}}')"
+                                type="button" id="payroll_nav">
+                                <i class="fa-solid fa-utensils"></i>&nbsp;&nbsp;
+                                <p>
+                                    Alimentacion empleados
+                                </p>
+                            </a>
+                        </li>
+
                     </ul>
                 </nav>
             </div>
