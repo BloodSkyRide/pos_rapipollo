@@ -2127,6 +2127,21 @@ function lessAndPlus(operator, identifier) {
     }
 }
 
+
+function deleteUnitsCart(id_nodo, price_product, units){
+
+    let nodo_delete = document.getElementById(`row_product_${id_nodo}`);
+    let price_total = document.getElementById("price_total_car");
+
+    let price_convert = (price_total.textContent).replace(/\./g, "");
+
+    let operation_resta = +price_convert - (price_product * units);
+
+    price_total.textContent = operation_resta.toLocaleString("es");
+
+    nodo_delete.remove();
+}
+
 function addProductToCar(name, description, identifier, url_image, price_unit) {
     let result = document.getElementById(`content_input-${identifier}`);
 
@@ -2157,9 +2172,8 @@ function addProductToCar(name, description, identifier, url_image, price_unit) {
                     <td>${description}</td>
                     <td>${amunt.value}</td>
                     <td><i class='fa-solid fa-dollar-sign text-success'></i>&nbsp;&nbsp;${(+price_unit).toLocaleString("es")}</td>
-                    <td><i class='fa-solid fa-dollar-sign text-success'></i>&nbsp;&nbsp;${convert_price.toLocaleString(
-                        "es"
-                    )}</td>
+                    <td><i class='fa-solid fa-dollar-sign text-success'></i>&nbsp;&nbsp;${convert_price.toLocaleString("es")}</td>
+                    <td><center><a onclick="deleteUnitsCart('${identifier}','${price_unit}', ${amunt.value})" type='button' title="Eliminar item"><i class="fa-solid fa-xmark text-danger"></i></a></center></td>
                   </tr>`;
 
     let convert_price_final = parseInt(convert_price.replace(/\./g, ""), 10);
@@ -2356,6 +2370,8 @@ async function changeInventory(url) {
     let units = document.getElementById("adicion_unidades");
     let id_item_inventory = document.getElementById("select_item_inventory");
     let price_cost = document.getElementById("price_costo");
+    let unit_establishing = document.getElementById("establishing_units");
+    let edit_name = document.getElementById("name_edit_inventory");
 
     const token = localStorage.getItem("access_token");
     let response = await fetch(url, {
@@ -2368,6 +2384,8 @@ async function changeInventory(url) {
             unidades: units.value,
             id_inventory: id_item_inventory.value,
             precio_costo: price_cost.value,
+            nombre_inventario: edit_name.value,
+            units_establishing: unit_establishing.value
         }),
     });
 
@@ -2495,7 +2513,7 @@ async function getShowHistorySell(url) {
         $("#history_sell_table").DataTable({
             info: true,
             responsive: true,
-            order: [[0, "asc"]],
+            // order: [[7, "desc"]],
             lengthChange: false,
             autoWidth: false,
             buttons: ["copy", "csv", "excel", "pdf", "print", "colvis"],
@@ -2563,7 +2581,7 @@ async function searchRange(url) {
         $("#history_sell_table").DataTable({
             info: true,
             responsive: true,
-            order: [[0, "asc"]],
+            order: [[7, "desc"]],
             lengthChange: false,
             autoWidth: false,
             buttons: ["copy", "csv", "excel", "pdf", "print", "colvis"],
@@ -2601,6 +2619,7 @@ async function searchRange(url) {
                 emptyTable: "No hay datos disponibles",
             },
         });
+        
         let new_date = document.getElementById("reservationdate");
         new_date.value = aux;
     }
@@ -2642,12 +2661,14 @@ async function modifyItemCompound(url){
     let edit_decription = document.getElementById("edit_description");
     let modify_cost = document.getElementById("edit_price");
     let image = document.getElementById("edit_imagen_product");
+    let edit_name = document.getElementById("edit_name");
     const file = image.files[0];
-    let form = new FormData();
+    let form = new FormData(); /// aca
 
     form.append("id_item_compund", item_compound.value);
     form.append("edit_description", edit_decription.value);
     form.append("modify_cost", modify_cost.value);
+    form.append("name", edit_name.value);
     form.append("image", file);
 
     const token = localStorage.getItem("access_token");
@@ -2682,8 +2703,10 @@ async function modifyItemCompound(url){
         modify_cost.value = "";
         image.value = "";
         let imagePreview = document.getElementById("imagePreview2");
-
+        edit_name.value = "";
         imagePreview.src = "";
+
+        $("#modal_change_product").modal("hide");
 
     }
 

@@ -38,6 +38,7 @@
                     <th scope="col">Unidades</th>
                     <th scope="col">Precio/unidad</th>
                     <th scope="col">Precio</th>
+                    <th scope="col">Carrito</th>
                   </tr>
                 </thead>
                 <tbody id="container_shop" data-precio="0">

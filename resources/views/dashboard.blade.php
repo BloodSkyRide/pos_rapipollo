@@ -94,7 +94,7 @@
 
         <aside class="aside main-sidebar sidebar-dark-primary elevation-4">
             <!-- Brand Logo -->
-            <a href="https://www.mypantalla.com/" class="brand-link" target="blank">
+            <a href="https://www.facebook.com/share/1Bn3Xcx28H/?mibextid=wwXIfr" class="brand-link" target="blank">
                 <img src="{{ asset('assets/small_logo.png') }}" alt="Mypantalla"
                     class="brand-image img-circle elevation-3 shadow">
                 <span class="brand-text font-weight-light">Rapi Pollo</span>
@@ -292,7 +292,7 @@
                                 type="button" id="payroll_nav">
                                 <i class="fa-solid fa-cart-plus"></i>&nbsp;&nbsp;
                                 <p>
-                                    Crear producto
+                                    Crear producto venta
                                 </p>
                             </a>
                         </li>
@@ -302,7 +302,7 @@
                                 type="button" id="payroll_nav">
                                 <i class="fa-solid fa-boxes-stacked"></i>&nbsp;&nbsp;
                                 <p>
-                                    Inventario
+                                    Crear materia prima
                                 </p>
                             </a>
                         </li>

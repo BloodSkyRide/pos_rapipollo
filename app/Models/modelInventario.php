@@ -87,5 +87,22 @@ class modelInventario extends Model
         ->value('total');
 
     }
+
+
+    public static function changeName($id_item, $name){
+
+
+        return self::where("id_item", $id_item)
+        ->update(["nombre" => $name]);
+
+
+    }
+
+    public static function changeUnits($id_item, $units){
+
+
+        return self::where("id_item", $id_item)
+        ->update(["unidades_disponibles" => $units]);
+    }
     
 }

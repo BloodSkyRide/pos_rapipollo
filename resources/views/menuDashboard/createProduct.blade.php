@@ -11,7 +11,7 @@
             <hr>
 
             <center>
-                <h4 class="text-secondary">Crear productos</h4>
+                <h4 class="text-secondary"><i class="fa-solid fa-dollar-sign"></i>&nbsp;&nbsp;Crear productos de venta</h4>
             </center>
             <hr>
 
@@ -152,7 +152,7 @@
 
 
     </div>
-
+    
     <!-- Modal -->
     <div class="modal fade" id="modal_change_product">
         <div class="modal-dialog">
@@ -178,6 +178,13 @@
 
                         </select>
 
+                    </div>
+
+
+                    <div class="form-group">
+                        <label for="edit_price">Modificar nombre producto:</label>
+                        <input type="text" class="form-control" id="edit_name"
+                            placeholder="Modificar nombre item..." autocomplete="off" name="costo">
                     </div>
 
                     <div class="form-group">

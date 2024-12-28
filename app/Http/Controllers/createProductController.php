@@ -14,6 +14,8 @@ use App\Models\modelAssits;
 use Tymon\JWTAuth\Facades\JWTAuth;
 use Illuminate\Support\Facades\Storage;
 
+use function Laravel\Prompts\confirm;
+
 class createProductController extends Controller
 {
 
@@ -24,7 +26,7 @@ class createProductController extends Controller
         $flag = 0;
 
         
-        if(file_exists($get_original_path) && $get_original_path !== "storage/ct_/product_defect.png"){
+        if(file_exists($get_original_path) && $get_original_path !== "storage/product_images/product_defect.png"){
 
             $flag ++;
             unlink($get_original_path);
@@ -62,13 +64,12 @@ class createProductController extends Controller
         $description = $request->edit_description;
         $modify_cost = $request->modify_cost;
         $image = $request->image;
+        $name = $request->name;
 
         $confirm = [];
 
-        
-        
         if($image !== "undefined"){
-
+            
             array_push($confirm, "imagen");
             
             $get_new_path = self::modifyImage($id_item, $image);
@@ -86,6 +87,14 @@ class createProductController extends Controller
             array_push($confirm, "costo");
             
             modelProducts::modifyCost($id_item, $modify_cost);
+        }
+
+
+        if(!empty($name)){
+            
+            array_push($confirm, "nombre");
+            
+            modelProducts::editName($id_item, $name);
         }
 
 
@@ -247,7 +256,7 @@ class createProductController extends Controller
     public function sell(Request $request)
     {
 
-
+ 
         $token_header = $request->header("Authorization");
 
         $replace = str_replace("Bearer ", "", $token_header);
@@ -279,7 +288,7 @@ class createProductController extends Controller
 
             // historial de ventas
 
-            $hour = date('h:i:s');
+            $hour = date('H:i:s');
             $fecha = date('Y-m-d');
 
             $total_venta = $decrement * $precio_producto;
