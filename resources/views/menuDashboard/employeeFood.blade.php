@@ -52,7 +52,8 @@
                     <tr>
                         <th scope="col">Nombre empleado</th>
                         <th scope="col">Cajero responsable</th>
-                        <th scope="col">cedula</th>
+                        <th scope="col">Cedula</th>
+                        <th scope="col">Producto</th>
                         <th scope="col">Unidades</th>
                         <th scope="col">Fecha</th>
                     </tr>
@@ -64,6 +65,7 @@
                             <td>{{$item['nombre_empleado']}}</td>
                             <td>{{$item['nombre_cajero']}}</td>
                             <td>{{$item['cedula']}}</td>
+                            <td>{{$item['item_producto']}}</td>
                             <td>{{$item['unidades']}}</td>
                             <td>{{$item['fecha']}}</td>
                         </tr>

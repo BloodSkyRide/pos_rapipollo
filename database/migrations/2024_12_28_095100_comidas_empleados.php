@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string("cedula",255)->nullable();
             $table->string("nombre_empleado",255)->nullable();
             $table->integer("unidades")->nullable();
+            $table->text("item_producto")->nullable();
             $table->date("fecha")->nullable();
             $table->timestamps();
             

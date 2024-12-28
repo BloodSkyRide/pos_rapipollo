@@ -10,7 +10,7 @@ class modelFoodEmployee extends Model
     use HasFactory;
 
     protected $table = "comidas_empleados";
-    protected $fillable = ["id_registro","nombre_cajero", "cedula", "nombre_empleado", "unidades", "fecha", "created_at", "updated_at"];
+    protected $fillable = ["id_registro","nombre_cajero", "cedula", "nombre_empleado", "unidades","item_producto", "fecha", "created_at", "updated_at"];
 
 
     public static function insertsData($data){

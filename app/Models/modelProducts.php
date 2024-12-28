@@ -103,4 +103,11 @@ class modelProducts extends Model
         ->update(["nombre_producto" => $name]);
 
     }
+
+    public static function getNameForId($id_item){
+
+        return self::where("id_producto", $id_item)
+        ->value("nombre_producto");
+
+    }
 }

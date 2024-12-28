@@ -42,8 +42,9 @@ class employeFoodController extends Controller
         $name_employee = $request->name_employee;
         $units = $request->units;
         $today = date("Y-m-d");
-        
-        
+
+        $name_product = modelProducts::getNameForId($id_item);
+
         
         
         $get_compuesto = modelCompuesto::getComposed($id_item);
@@ -75,6 +76,7 @@ class employeFoodController extends Controller
                 "cedula" => $self_id,
                 "nombre_empleado" => $name_employee,
                 "unidades" => $units,
+                "item_producto" => $name_product,
                 "fecha" => $today
 
             ];
