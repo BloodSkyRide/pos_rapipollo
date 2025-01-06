@@ -86,7 +86,7 @@
         <div class="form-group">
           <label for="edit_price">cambio:</label>
           <input type="number" class="form-control" id="cambio"
-              placeholder="Modificar precio de costo..." autocomplete="off" name="costo">
+              placeholder="Monto del cleinte..." autocomplete="off" name="costo">
       </div>
       </div>
       <div class="modal-footer">

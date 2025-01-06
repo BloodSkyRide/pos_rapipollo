@@ -2132,10 +2132,13 @@ function deleteUnitsCart(id_nodo, price_product, units){
 
     let nodo_delete = document.getElementById(`row_product_${id_nodo}`);
     let price_total = document.getElementById("price_total_car");
-
+    let price_format_container = document.getElementById("container_shop");
     let price_convert = (price_total.textContent).replace(/\./g, "");
 
     let operation_resta = +price_convert - (price_product * units);
+
+
+    price_format_container.dataset.precio = operation_resta;
 
     price_total.textContent = operation_resta.toLocaleString("es");
 
