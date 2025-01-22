@@ -25,7 +25,7 @@ class modelProducts extends Model
     public static function searcher($search_text){
 
         return self::where("nombre_producto","LIKE", "%". $search_text. "%")
-        ->limit(5)
+        ->limit(6)
         ->get();
 
 
