@@ -159,5 +159,6 @@ Route::get('/getShowEmployeeFood', [employeFoodController::class, 'getShowEmploy
 
 Route::post('/insertFood', [employeFoodController::class, 'insertFood'])->name("insertFood")->middleware(["verifyTokenHeader"]);
 
+Route::post('/informationProduct', [createProductController::class, 'informationProduct'])->name("informationProduct")->middleware(["verifyTokenHeader"]);
 
 
