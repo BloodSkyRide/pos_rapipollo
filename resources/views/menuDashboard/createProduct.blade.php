@@ -114,6 +114,7 @@
                     <thead class="thead-dark">
                       <tr>
                         <th scope="col">#</th>
+                        <th scope="col">Información</th>
                         <th scope="col">Item Respresentación</th>
                         <th scope="col">Producto</th>
                         <th scope="col">Descripción</th>
@@ -129,6 +130,7 @@
                         @foreach ($compuestos as $item)
                         <tr>
                           <th scope="row">{{$flag}}</th>
+                          <th scope="row"><a type="button" onclick="openModalInfo('{{$item['id_producto']}}','{{$item['nombre_producto']}}','{{route('informationProduct')}}')" class="btn btn-info"><i class="fa-solid fa-circle-info"></i></a></th>
                           <td><img src="{{$item['url_imagen']}}" alt="item {{$item['nombre_producto']}}" width="40" height="40"></td>
                           <td>{{$item['nombre_producto']}}</td>
                           <td>{{$item['descripcion']}}</td>
