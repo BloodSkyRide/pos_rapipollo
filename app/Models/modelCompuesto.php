@@ -22,9 +22,7 @@ class modelCompuesto extends Model
 
     public static function getComposed($id_product){
 
-        return self::join('inventario', 'inventario.id_item', '=', 'compuestos.id_item_fk')
-        ->select("inventario.nombre", "compuestos.descuento")
-        ->where('inventario.id_item', $id_product)
+        return self::where('id_producto_venta', $id_product)
         ->get();
 
     }
@@ -34,6 +32,13 @@ class modelCompuesto extends Model
 
 
         return self::all();
+    }
+    public static function changeNameCompound($id_item_fk,$name_compound){
+
+
+        return self::where("id_item_fk", $id_item_fk)
+        ->update(["nombre_compuesto" => $name_compound]);
+
     }
 
 
