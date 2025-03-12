@@ -124,6 +124,11 @@
                 <div class="modal-body">
 
                     <div class="form-group">
+                        <label for="adicion_unidades">Unidades disponibles:</label>
+                        <h2 class="badge badge-success" id="badge"></h2>
+                    </div>
+
+                    <div class="form-group">
                         <label for="adicion_unidades">Cambiar nombre item inventario:</label>
                         <input type="text" class="form-control" id="name_edit_inventory"
                             placeholder="Cambiar nombre item inventario..." autocomplete="off" name="nombre">

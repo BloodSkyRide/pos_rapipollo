@@ -41,6 +41,14 @@ class modelCompuesto extends Model
 
     }
 
+    public static function deleteCompound($id_item_fk){
+
+
+        return self::where("id_item_fk", $id_item_fk)
+        ->delete();
+    }
+
+
 
 
 
