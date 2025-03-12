@@ -52,7 +52,7 @@ class inventoryController extends Controller
         $units_establishing = $request->units_establishing;
 
         
-        if(!empty($units_establishing)){
+        if($units_establishing !== null){
             
             
             modelInventario::changeUnits($id_inventory, $units_establishing);
