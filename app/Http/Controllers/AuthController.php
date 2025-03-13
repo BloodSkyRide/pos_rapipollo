@@ -13,6 +13,8 @@ use Tymon\JWTAuth\Payload;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use App\Models\modelUser;
 
+class AuthController extends Controller
+{
 public function login(Request $request)
 {
     $cedula = $request->cedula;
