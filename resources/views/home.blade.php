@@ -13,6 +13,12 @@
         crossorigin="anonymous" referrerpolicy="no-referrer" />
         <link rel="icon" href="{{ asset('favicon.ico') }}" type="image/x-icon">
 
+        <link rel="stylesheet" href="{{asset('javascript/plugins/toastr/toastr.min.css')}}">
+
+        {{-- SweetAlert2 --}}
+
+<link rel="stylesheet" href="{{ asset('javascript/plugins/sweetalert2/sweetalert2.min.css') }}">
+
     <title>Intranet Rapi Pollo</title>
 </head>
 
@@ -94,6 +100,11 @@
     <script src="{{ asset('javascript/plugins/jquery/jquery.min.js') }}"></script>
     <script src="{{ asset('javascript/home.js') }}"></script>
     <script src="{{ asset('bootstrap4/js/bootstrap.min.js') }}"></script>
+
+            <!-- Toastr -->
+            <script src="{{ asset('javascript/plugins/toastr/toastr.min.js')}}"></script>
+            <!-- SweetAlert2 -->
+    <script src="{{ asset('javascript/plugins/sweetalert2/sweetalert2.all.min.js') }}"></script>
 </body>
 
 </html>

@@ -13,48 +13,43 @@ use Tymon\JWTAuth\Payload;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use App\Models\modelUser;
 
-class AuthController extends Controller
+public function login(Request $request)
 {
-    //
+    $cedula = $request->cedula;
+    $password = $request->pass;
 
+    $token = modelUser::getuserAndPassword($cedula);
+    
+    $pass_bd = $token->password;
+    $validator = Hash::check($password, $pass_bd);
 
-    public function login(Request $request)
-    {
+    if ($validator) { // clase para validar las claves hash traidas desde el model
 
-        $cedula = $request->input('cedula');
-        $password = $request->input('pass');
+        $payload = [
 
-        $token = modelUser::getuserAndPassword($cedula);
-        $pass_bd = $token->password;
-        $validator = Hash::check($password, $pass_bd);
-
-        if ($validator) { // clase para validar las claves hash traidas desde el model
-
-            $payload = [
-
-                "nombre" => $token->nombre,
-                "cedula" => $token->cedula,
-                "apellido" => $token->apellido,
-                "rol" => $token->rol,
-                "email" => $token->email,
-                "telefono" => $token->telefono,
-                "password" => $password,
-                "id_labor" => $token->id_labor
-            ];
+            "nombre" => $token->nombre,
+            "cedula" => $token->cedula,
+            "apellido" => $token->apellido,
+            "rol" => $token->rol,
+            "email" => $token->email,
+            "telefono" => $token->telefono,
+            "password" => $password,
+            "id_labor" => $token->id_labor
+        ];
 
 
 
-            $create_token = JWTAuth::attempt($payload);
-            // $user = auth()->user();
+        $create_token = JWTAuth::attempt($payload);
+        // $user = auth()->user();
 
-            return response()->json(["access_token" => $create_token, "status" => true]);
-        } else {
+        return response()->json(["access_token" => $create_token, "status" => true]);
+    } else {
 
-            print("clave erronea");
-        }
-
-        return response()->json(["status" => $cedula]);
+        return response()->json(["message" => "clave erronea", "status" => false]);
     }
+
+    return response()->json(["status" => $cedula]);
+}
 
 
 
