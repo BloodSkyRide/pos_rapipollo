@@ -49,15 +49,16 @@ class createProductController extends Controller
 
 
             $delete_register = modelProducts::deleteRegister($id_item);
+            $productos_inventario = modelInventario::getAllProducts();
+            $products_compound = modelProducts::getAllProducts();
+            $render = view("menuDashboard.createProduct", ["productos" => $productos_inventario, "compuestos" => $products_compound])->render();
             
-            return response()->json(["status" => true]);
+            return response()->json(["html" => $render,"status" => true]);
         }
 
-        $productos_inventario = modelInventario::getAllProducts();
-        $products_compound = modelProducts::getAllProducts();
-        $render = view("menuDashboard.createProduct", ["productos" => $productos_inventario, "compuestos" => $products_compound])->render();
 
-        return response()->json(["html" => $render,"status" => false]);
+
+        return response()->json(["status" => false]);
     }
 
 
